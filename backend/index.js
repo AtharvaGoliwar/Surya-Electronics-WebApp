@@ -52,6 +52,40 @@ app.post("/addUser",(req,res)=>{
     })
 })
 
+app.post('/createTable', (req, res) => {
+    const { user } = req.body;
+    if (!user) {
+      return res.status(400).json({ error: 'userId is required' });
+    }
+  
+    const tableName = mysql.escapeId(user); // Escape the userId to use it as a table name safely
+  
+    const query = `
+      CREATE TABLE ${tableName} (
+        Branch VARCHAR(255),
+        docNum VARCHAR(255),
+        \`Invoice Date\` DATE,
+        bpcode VARCHAR(255),
+        bpName VARCHAR(255),
+        \`Mobile Phone\` VARCHAR(255),
+        ItemName VARCHAR(255),
+        Brand VARCHAR(255),
+        Category VARCHAR(255),
+        salesEmp VARCHAR(255),
+        ItemTotal DECIMAL(10, 2),
+        review VARCHAR(30)
+      );
+    `;
+  
+    db.query(query, (err, result) => {
+      if (err) {
+        console.error('Error creating table:', err);
+        return res.status(500).json({ error: 'Error creating table' });
+      }
+      res.json({ message: `Table ${user} created successfully` });
+    });
+  });
+  
 let user1 = "";
 
 app.post("/login",(req,res)=>{
@@ -359,19 +393,19 @@ app.post("/setreview",async (req,res)=>{
         try {
             for (const key of Object.keys(data)) {
                 for (const rec of data[key]) {
-                    if(rec.review!=''){
+                    if(rec.review!==''){
 
                         // Log the current values
-                        console.log(`Updating review for salesEmp: ${key}, bpcode: ${rec.bpcode}, review: ${rec.review}`);
+                        console.log(`Updating review for salesEmp: ${rec.salesEmp}, bpcode: ${rec.bpcode}, review: ${rec.review}`);
         
                         const updateQuery = 'UPDATE customers_small SET review = ? WHERE bpcode = ? AND salesEmp = ?';
-                        const params = [rec.review, rec.bpcode, key];
+                        const params = [rec.review, rec.bpcode, rec.salesEmp];
         
                         try {
                             const result = await queryDatabase(updateQuery, params);
-                            console.log(`Update successful for salesEmp: ${key}, bpcode: ${rec.bpcode}, result: ${result}`);
+                            console.log(`Update successful for salesEmp: ${rec.salesEmp}, bpcode: ${rec.bpcode}, result: ${result}`);
                         } catch (error) {
-                            console.error(`Error updating data for salesEmp: ${key}, bpcode: ${rec.bpcode}`, error);
+                            console.error(`Error updating data for salesEmp: ${rec.salesEmp}, bpcode: ${rec.bpcode}`, error);
                         }
                     }
                 }

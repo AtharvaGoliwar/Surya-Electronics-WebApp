@@ -13,7 +13,7 @@ export default function CreateUser() {
     e?.preventDefault();
     const userDetails = { userId: user, password: passwd };
     try {
-      // await axios.post("http://localhost:8800/addUser", userDetails);
+      await axios.post("http://localhost:8800/addUser", userDetails);
       const res = await axios.post("http://localhost:8800/createTable", {
         user,
       });

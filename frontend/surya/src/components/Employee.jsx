@@ -68,20 +68,7 @@ export default function Employee1() {
         }
       }
     };
-    // const set = () => {
-    //   for (let i = 0; i < displayData.length; i++) {
-    //     setReview({
-    //       ...review,
-    //       [displayData[i]["bpcode"]]: {
-    //         review: displayData[i]["review"],
-    //         description: displayData[i]["description"],
-    //       },
-    //     });
-    //   }
-    // };
     fetchEmployeeData();
-    // console.log(displayData);
-    // set();
   }, [user]);
 
   const Logout = async () => {

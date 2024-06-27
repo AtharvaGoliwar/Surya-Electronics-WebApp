@@ -59,6 +59,7 @@ export default function EmpCustomer() {
                 <p>Item Cost: {record.ItemTotal}</p>
                 <p>Sales Man: {record.salesEmp}</p>
                 <p>Review: {record.review}</p>
+                <p>Description: {record.description}</p>
               </div>
             ))}
           </div>

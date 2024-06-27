@@ -7,7 +7,7 @@ export default function Employee1() {
   const [user, setUser] = useState("");
   const [displayData, setDisplayData] = useState([]);
   const [review, setReview] = useState({});
-  const [val, setVal] = useState("");
+  const [val, setVal] = useState({});
 
   const navigate = useNavigate();
 
@@ -79,8 +79,9 @@ export default function Employee1() {
   };
 
   const handleChange = (e) => {
-    // const { name, value } = e.target;
-    setReview({ ...review, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setVal({ ...val, [name]: value });
+    setReview({ ...review, [name]: { description: value } });
   };
   return (
     <div>
@@ -96,12 +97,24 @@ export default function Employee1() {
             <br />
             <div>
               <input
+                type="text"
+                name={rec.bpcode}
+                value={val[rec.bpcode]}
+                onChange={(e) => handleChange(e)}
+              />
+              <input
                 type="radio"
                 name={rec.bpcode}
                 id="1"
                 value={"Ok"}
                 onChange={(e) =>
-                  setReview({ ...review, [e.target.name]: e.target.value })
+                  setReview({
+                    ...review,
+                    [e.target.name]: {
+                      review: e.target.value,
+                      description: val[rec.bpcode],
+                    },
+                  })
                 }
               />
               Ok
@@ -111,7 +124,13 @@ export default function Employee1() {
                 id="2"
                 value={"Not Ok"}
                 onChange={(e) =>
-                  setReview({ ...review, [e.target.name]: e.target.value })
+                  setReview({
+                    ...review,
+                    [e.target.name]: {
+                      review: e.target.value,
+                      description: val[rec.bpcode],
+                    },
+                  })
                 }
               />
               Not Ok
@@ -121,7 +140,13 @@ export default function Employee1() {
                 id="3"
                 value={"Not pick call"}
                 onChange={(e) =>
-                  setReview({ ...review, [e.target.name]: e.target.value })
+                  setReview({
+                    ...review,
+                    [e.target.name]: {
+                      review: e.target.value,
+                      description: val[rec.bpcode],
+                    },
+                  })
                 }
               />
               Not pick call

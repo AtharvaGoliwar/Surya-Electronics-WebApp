@@ -73,7 +73,8 @@ app.post('/createTable', (req, res) => {
         Category VARCHAR(255),
         salesEmp VARCHAR(255),
         ItemTotal DECIMAL(10, 2),
-        review VARCHAR(30)
+        review VARCHAR(30),
+        description VARCHAR(255)
       );
     `;
   
@@ -327,9 +328,9 @@ app.post("/setreview",async (req,res)=>{
             return null;
         }
 
-        const updatequery = `UPDATE \`${userId}\` SET review = ? where bpcode=?`
+        const updatequery = `UPDATE \`${userId}\` SET review = ?, description=? where bpcode=?`
         return new Promise((resolve,reject)=>{
-            db.query(updatequery,[data[key],key],(err,result)=>{
+            db.query(updatequery,[data[key]["review"],data[key]["description"],key],(err,result)=>{
                 if(err){
                     console.log('Error Updating data:', err)
                     return reject(err)
@@ -393,17 +394,17 @@ app.post("/setreview",async (req,res)=>{
         try {
             for (const key of Object.keys(data)) {
                 for (const rec of data[key]) {
-                    if(rec.review!==''){
+                    if(rec.review!=='' && rec.description!==""){
 
                         // Log the current values
-                        console.log(`Updating review for salesEmp: ${rec.salesEmp}, bpcode: ${rec.bpcode}, review: ${rec.review}`);
+                        console.log(`Updating review for salesEmp: ${rec.salesEmp}, bpcode: ${rec.bpcode}, review: ${rec.review}, description: ${rec.description}`);
         
-                        const updateQuery = 'UPDATE customers_small SET review = ? WHERE bpcode = ? AND salesEmp = ?';
-                        const params = [rec.review, rec.bpcode, rec.salesEmp];
+                        const updateQuery = 'UPDATE customers_small SET review = ?, description=? WHERE bpcode = ? AND salesEmp = ?';
+                        const params = [rec.review,rec.description, rec.bpcode, rec.salesEmp];
         
                         try {
                             const result = await queryDatabase(updateQuery, params);
-                            console.log(`Update successful for salesEmp: ${rec.salesEmp}, bpcode: ${rec.bpcode}, result: ${result}`);
+                            console.log(`Update successful for salesEmp: ${rec.salesEmp}, bpcode: ${rec.bpcode}, result: ${JSON.stringify(result)}`);
                         } catch (error) {
                             console.error(`Error updating data for salesEmp: ${rec.salesEmp}, bpcode: ${rec.bpcode}`, error);
                         }
@@ -449,7 +450,7 @@ app.get("/alldata", (req, res) => {
             return res.json(data);
         });
     } else {
-        query = "SELECT * FROM customers_small";
+        query = "SELECT * FROM customers";
         db.query(query, (err, data) => {
             if (err) return res.json(err);
             return res.json(data);

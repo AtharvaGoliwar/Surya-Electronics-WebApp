@@ -50,12 +50,38 @@ export default function Employee1() {
 
           setData(newData);
           setDisplayData(updatedDisplayData);
+
+          // Update review object based on displayData
+          const updatedReview = {};
+          updatedDisplayData.forEach((rec) => {
+            updatedReview[rec.bpcode] = {
+              review: rec.review,
+              description: rec.description,
+            };
+          });
+          setReview((prevReview) => ({
+            ...prevReview,
+            ...updatedReview,
+          }));
         } catch (err) {
           console.log(err);
         }
       }
     };
+    // const set = () => {
+    //   for (let i = 0; i < displayData.length; i++) {
+    //     setReview({
+    //       ...review,
+    //       [displayData[i]["bpcode"]]: {
+    //         review: displayData[i]["review"],
+    //         description: displayData[i]["description"],
+    //       },
+    //     });
+    //   }
+    // };
     fetchEmployeeData();
+    // console.log(displayData);
+    // set();
   }, [user]);
 
   const Logout = async () => {
@@ -88,6 +114,7 @@ export default function Employee1() {
       Hello Employee
       <button onClick={Logout}>Logout</button>
       {console.log(displayData)}
+      {console.log(review)}
       <div>
         {displayData.map((rec) => (
           <div key={rec.id}>
@@ -99,7 +126,7 @@ export default function Employee1() {
               <input
                 type="text"
                 name={rec.bpcode}
-                value={val[rec.bpcode]}
+                value={review[rec.bpcode]["description"]}
                 onChange={(e) => handleChange(e)}
               />
               <input
@@ -107,6 +134,7 @@ export default function Employee1() {
                 name={rec.bpcode}
                 id="1"
                 value={"Ok"}
+                checked={review[rec.bpcode]["review"] === "Ok"}
                 onChange={(e) =>
                   setReview({
                     ...review,
@@ -123,6 +151,7 @@ export default function Employee1() {
                 name={rec.bpcode}
                 id="2"
                 value={"Not Ok"}
+                checked={review[rec.bpcode]["review"] === "Not Ok"}
                 onChange={(e) =>
                   setReview({
                     ...review,
@@ -139,6 +168,7 @@ export default function Employee1() {
                 name={rec.bpcode}
                 id="3"
                 value={"Not pick call"}
+                checked={review[rec.bpcode]["review"] === "Not pick call"}
                 onChange={(e) =>
                   setReview({
                     ...review,

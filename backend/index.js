@@ -191,7 +191,8 @@ app.post('/send', (req, res) => {
         return res.status(400).json({ error: 'User ID and Date both are required' });
     }
 
-    let q1 = 'SELECT * FROM customers_small WHERE salesEmp = ? AND `Invoice Date` in (?)';
+    // let q1 = 'SELECT * FROM customers_small WHERE salesEmp = ? AND `Invoice Date` in (?)';
+    let q1 = 'SELECT * FROM customers WHERE salesEmp= ? AND `Invoice Date` in (?)';
     
     db.query(q1, [userId, date], async (err, data) => {
         if (err) {
@@ -417,7 +418,8 @@ app.post("/setreview",async (req,res)=>{
                         // Log the current values
                         console.log(`Updating review for salesEmp: ${rec.salesEmp}, bpcode: ${rec.bpcode}, review: ${rec.review}, description: ${rec.description}`);
         
-                        const updateQuery = 'UPDATE customers_small SET review = ?, description=? WHERE bpcode = ? AND salesEmp = ?';
+                        // const updateQuery = 'UPDATE customers_small SET review = ?, description=? WHERE bpcode = ? AND salesEmp = ?';
+                        const updateQuery = 'UPDATE customers SET review = ?, description=? WHERE bpcode = ? AND salesEmp = ?';
                         const params = [rec.review,rec.description, rec.bpcode, rec.salesEmp];
         
                         try {
@@ -462,7 +464,8 @@ app.get("/alldata", (req, res) => {
     let query = "";
     
     if (date && date.toString() !== "") {
-        query = "SELECT * FROM customers_small WHERE `Invoice Date` IN (?)";
+        // query = "SELECT * FROM customers_small WHERE `Invoice Date` IN (?)";
+        query = "SELECT * FROM customers WHERE `Invoice Date` in (?)";
         db.query(query, [date], (err, data) => {
             if (err) return res.json(err);
             return res.json(data);

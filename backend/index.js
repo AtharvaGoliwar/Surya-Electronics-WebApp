@@ -165,6 +165,24 @@ app.post('/logout', (req, res) => {
         })
 })*/
 
+
+app.post("/truncateTable",(req,res)=>{
+    const userId = req.body.userId
+    if(!userId){
+        return res.status(400).json({error:"userid needed"})
+    }
+    let query=`TRUNCATE TABLE \`${userId}\``
+    db.query(query,(err,data)=>{
+        if(err){
+            return res.json({error:"query not working"})
+        }
+        return res.json("truncated successfully")
+    }) 
+    
+    
+})
+
+
 app.post('/send', (req, res) => {
     const userId = req.body.userId;
     const date = req.body.date;

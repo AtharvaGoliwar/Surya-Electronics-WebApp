@@ -54,6 +54,9 @@ export default function Admin() {
       for (let i = 0; i < res?.data.length; i++) {
         console.log("hel");
         if (res.data[i]["userId"] != "admin") {
+          let res2 = await axios.post("http://localhost:8800/truncateTable", {
+            userId: res.data[i]["userId"],
+          });
           let res1 = await axios.post("http://localhost:8800/send", {
             userId: res.data[i]["userId"],
             date: selectedDates,

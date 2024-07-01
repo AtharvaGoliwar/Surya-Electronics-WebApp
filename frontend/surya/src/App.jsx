@@ -11,6 +11,8 @@ import Admin from "./components/Admin";
 import Employee from "./components/Employee";
 import Employee1 from "./components/Employee1";
 import ExtraData from "./components/ExtraData";
+import DeleteUser from "./components/DeleteUser";
+import UploadFile from "./components/UploadFile";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -28,6 +30,8 @@ function App() {
             <Route path="/emp" element={<Employee />} />
             <Route path="/delemp" element={<ExtraData />} /> //This route is
             temporary and should be added under Admin panel
+            <Route path="/deleteUser" element={<DeleteUser />} />
+            <Route path="/upload" element={<UploadFile />} />
           </Routes>
         </BrowserRouter>
       </div>

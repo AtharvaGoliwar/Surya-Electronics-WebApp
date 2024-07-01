@@ -7,15 +7,18 @@ export default function EmpCustomer() {
   useState(() => {
     const fetchRecords = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/users");
+        const res = await axios.get("http://localhost:8800/users", {
+          withCredentials: true,
+        });
         const newRecords = {};
 
         for (let i = 0; i < res?.data.length; i++) {
-          if (res.data[i]["userId"] !== "admin") {
+          if (res.data[i]["role"] !== "admin") {
             const employee = res.data[i]["userId"];
             const params = { empid: res.data[i]["userId"] };
             const res1 = await axios.get("http://localhost:8800/emp", {
               params,
+              withCredentials: true,
             });
             newRecords[employee] = res1.data;
           }
@@ -35,7 +38,8 @@ export default function EmpCustomer() {
     try {
       const res = await axios.post(
         "http://localhost:8800/finalreview",
-        records
+        records,
+        { withCredentials: true }
       );
     } catch (err) {
       console.log(err);

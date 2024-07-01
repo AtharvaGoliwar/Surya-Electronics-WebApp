@@ -12,13 +12,17 @@ export default function Login() {
     e?.preventDefault();
     // const dets = [parseInt(user), passwd];
     try {
-      const res = await axios.post("http://localhost:8800/login", {
-        user,
-        passwd,
-      });
+      const res = await axios.post(
+        "http://localhost:8800/login",
+        {
+          user,
+          passwd,
+        },
+        { withCredentials: true }
+      );
       console.log(res?.data.username);
       console.log(res?.data.passwd);
-      if (res?.data.username === "admin") {
+      if (res?.data.role === "admin") {
         navigate("/admin");
       } else {
         if (res.data.message === "Login Successful") {

@@ -15,7 +15,10 @@ export default function Employee1() {
   useEffect(() => {
     const fetchSessionData = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/session");
+        const res = await axios.get("http://localhost:8800/session", {
+          withCredentials: true,
+        });
+
         const userID = res?.data.userId;
         setUser(userID);
       } catch (err) {
@@ -28,11 +31,12 @@ export default function Employee1() {
   // Fetch employee data when user is set
   useEffect(() => {
     const fetchEmployeeData = async () => {
+      console.log(user);
       if (user) {
         try {
           const url = `http://localhost:8800/emp`;
           const params = { empid: user };
-          const res1 = await axios.get(url, { params });
+          const res1 = await axios.get(url, { params, withCredentials: true });
           const newData = res1.data;
           setReview({ ...review, empid: user });
 
@@ -73,7 +77,11 @@ export default function Employee1() {
 
   const Logout = async () => {
     try {
-      await axios.post("http://localhost:8800/logout", {});
+      await axios.post(
+        "http://localhost:8800/logout",
+        {},
+        { withCredentials: true }
+      );
       navigate("/login");
     } catch (err) {
       console.log(err);
@@ -83,7 +91,9 @@ export default function Employee1() {
   const Send = async () => {
     try {
       console.log(review);
-      await axios.post("http://localhost:8800/setreview", review);
+      await axios.post("http://localhost:8800/setreview", review, {
+        withCredentials: true,
+      });
       console.log("review sent");
     } catch (err) {
       console.log(err);

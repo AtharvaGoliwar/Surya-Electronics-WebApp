@@ -43,7 +43,7 @@ app.get("/",(req,res)=>{
     // res.json("hello world")
     // res.cookie("helo","world").send();
     // res.cookie("check","signed",{signed:true}).send()
-    console.log(req.signedCookies.check)
+    // console.log(req.signedCookies.check)
     // console.log(req.cookies)
 })
 
@@ -60,7 +60,7 @@ function setUser(object){
  const requireAuth = (req, res, next) => {
     // console.log(user1)
     const token = req.signedCookies?.cookie
-    console.log(token,"auth")
+    // console.log(token,"auth")
     if(!token) return res.status(403).json({error:"not logged in"})
     const user = getUser(token)
     if (!user) {
@@ -72,9 +72,9 @@ function setUser(object){
 // Middleware for admin role
 const requireAdmin = (req, res, next) => {
     const token = req.signedCookies?.cookie
-    console.log(token,"admin cookie")
+    // console.log(token,"admin cookie")
     const user = getUser(token)
-    console.log(user,"user")
+    // console.log(user,"user")
     // console.log(req.session.user,"middleware")
     if (user.role !== 'admin') {
         return res.status(403).json({ message: 'Forbidden: Admin access only',admin:false });
@@ -237,7 +237,7 @@ app.get('/session',requireAuth,(req,res)=>{
 })
 
 app.post('/logout',requireAuth, (req, res) => {
-    console.log(req.session.user,"logout")
+    // console.log(req.session.user,"logout")
     res.clearCookie("cookie",{path:"/"})
     // cookies.set("token",null,{httpOnly:true})
 
@@ -433,7 +433,7 @@ app.post("/sendextradata",requireAuth,requireAdmin,async (req,res)=>{
                 try {
                     const result = await queryDatabase(insQuery, values);
                     // console.log(`Insertion successful for salesEmp: ${key}, bpcode: ${rec.bpcode}, result: ${result}`);
-                    console.log(`Insertion Successful for salesEmp: ${users[i]}`)
+                    // console.log(`Insertion Successful for salesEmp: ${users[i]}`)
                 } catch (error) {
                     console.error(`Error updating data for salesEmp: ${users[i]}`, error);
                     throw error
@@ -453,7 +453,7 @@ app.post("/sendextradata",requireAuth,requireAdmin,async (req,res)=>{
   
           try {
             const result = await queryDatabase(insQuery, values);
-            console.log(`Insertion Successful for salesEmp: ${users[i % usersLength]}`);
+            // console.log(`Insertion Successful for salesEmp: ${users[i % usersLength]}`);
           } catch (error) {
             console.error(`Error updating data for salesEmp: ${users[i % usersLength]}`, error);
             throw error;

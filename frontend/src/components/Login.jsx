@@ -14,7 +14,8 @@ export default function Login() {
     // const dets = [parseInt(user), passwd];
     try {
       const res = await axios.post(
-        "http://localhost:8800/login",
+        // "http://localhost:8800/login",
+        `${process.env.BACKEND_URL}/login`,
         {
           user,
           passwd,

@@ -16,7 +16,8 @@ export default function Login() {
     try {
       const res = await axios.post(
         // "http://localhost:8800/login",
-        `${process.env.REACT_APP_BACKEND_URL}/login`,
+        // `${process.env.REACT_APP_BACKEND_URL}/login`,
+        "https://surya-electronics-webapp.onrender.com/login",
         {
           user,
           passwd,

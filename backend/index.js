@@ -252,10 +252,11 @@ app.post("/login",(req,res)=>{
     const {user, passwd} = req?.body;
     // const cookies = new Cookies(req, res);
     // const query = `SELECT * FROM users WHERE userId = ${req?.body.userId}`
-    const q1 = 'CREATE TABLE IF NOT EXISTS users (userId varchar(255) primary key, password varchar(50), role varchar(50), name varchar(255), phone varchar(10), branch varchar(50))'
+    const q1 = 'INSERT INTO users values("admin", "admin123", "admin", "admin", "1234567890", "WKD")'
     db.query(q1,(err,data)=>{
-        if(err) return res.json({error:"error creating users table",err})
+        if(err) return res.json({error:"error inserting users table",err})
     })
+
     const query = 'SELECT * FROM users WHERE userId = ? AND password = ?';
     db.query(query,[user,passwd],(err,data)=>{
         if(err) return res.json(err)

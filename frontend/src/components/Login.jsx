@@ -12,7 +12,8 @@ export default function Login() {
   const login = async (e) => {
     e?.preventDefault();
     // const dets = [parseInt(user), passwd];
-    console.log(process.env.REACT_APP_BACKEND_URL);
+    const url = process.env.REACT_APP_BACKEND_URL;
+    console.log(url);
     try {
       const res = await axios.post(
         // "http://localhost:8800/login",

@@ -23,7 +23,16 @@ app.use(session({
 app.use(express.json({limit:"10mb"}))
 // app.use(cors({origin:"http://localhost:5173",credentials:true}))
 // app.use(cors({origin:"https://surya-electronics-web-app.vercel.app/",credentials:true}))
-app.use(cors())
+// Configure CORS options
+const corsOptions = {
+    origin: 'https://surya-electronics-web-app.vercel.app', // Your frontend URL
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true
+  };
+  
+  // Use the CORS middleware
+  app.use(cors(corsOptions));
+  
 // app.use(cors({origin:"https://tvbfxxwf-5173.inc1.devtunnels.ms/",credentials:true}))
 
 

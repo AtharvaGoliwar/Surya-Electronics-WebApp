@@ -16,7 +16,7 @@ function Sidebar() {
       <aside className="sidebar">
         <nav>
           <img
-            src="logo_no_bg.png"
+            src="/logo_no_bg.png"
             alt="logo"
             width="100"
             height="50"

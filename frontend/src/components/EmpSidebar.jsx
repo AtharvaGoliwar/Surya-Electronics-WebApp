@@ -16,7 +16,7 @@ function EmpSidebar({ empName }) {
       <aside className="emp-sidebar">
         <nav>
           <img
-            src="logo_no_bg.png"
+            src="/logo_no_bg.png"
             alt="logo"
             width="70"
             height="35"

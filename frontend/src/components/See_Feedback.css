@@ -11,6 +11,10 @@
     width: 80vw;
 }
 
+.employee-header.highlight h4 {
+    color: red;
+}
+
 .form-section h3 {
     color: #ffffff;
 }

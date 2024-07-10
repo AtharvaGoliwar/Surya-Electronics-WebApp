@@ -164,8 +164,32 @@ function See_Feedback() {
               <div className="results">
                 {employeesData.map((employeeEntry, index) => (
                   <div key={index} className="employee-entry">
-                    <div className="employee-header">
+                    <div
+                      className={`employee-header ${
+                        records[employeeEntry] &&
+                        records[employeeEntry].some((item) => !item.review)
+                          ? "highlight"
+                          : ""
+                      }`}
+                    >
                       <h4>Employee: {employeeEntry}</h4>
+                      <h2
+                        className={`check ${
+                          records[employeeEntry] &&
+                          records[employeeEntry].some((item) => !item.review)
+                            ? "highlight"
+                            : ""
+                        }`}
+                        // style={{ display: "none" }}
+                        style={
+                          records[employeeEntry] &&
+                          records[employeeEntry].some((item) => !item.review)
+                            ? { display: "block" }
+                            : { display: "none" }
+                        }
+                      >
+                        TASK NOT COMPLETED
+                      </h2>
                       <button onClick={() => deleteEmployee(index)}>
                         Delete
                       </button>

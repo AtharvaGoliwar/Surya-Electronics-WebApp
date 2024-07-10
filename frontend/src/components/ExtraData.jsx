@@ -18,6 +18,7 @@ function Del_Staff_Data() {
   const [users, setUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [deletedUsers, setDeletedUsers] = useState([]);
+  const [next, setNext] = useState(false);
   const url = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
@@ -51,6 +52,7 @@ function Del_Staff_Data() {
         }
         setData(retrievedData);
         setDeletedUsers(abc);
+        setNext(!next);
       } catch (err) {
         console.log(err);
       }
@@ -77,7 +79,7 @@ function Del_Staff_Data() {
       }
     };
     getUsers();
-  }, []);
+  }, [next]);
 
   const handleBpNameChange = (e) => {
     setBpNameInput(e.target.value);

@@ -322,7 +322,11 @@ app.get('/session',requireAuth,(req,res)=>{
 
 app.post('/logout',requireAuth, (req, res) => {
     // console.log(req.session.user,"logout")
-    res.clearCookie("cookie",{path:"/"})
+    res.clearCookie("cookie", {
+        signed: true,
+        sameSite: "none",
+        secure: true
+      });
     // cookies.set("token",null,{httpOnly:true})
 
     res.json({ message: 'Logout successful' });

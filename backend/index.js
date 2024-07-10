@@ -111,6 +111,7 @@ function setUser(object){
     next();
 };
 
+
 // Middleware for admin role
 const requireAdmin = (req, res, next) => {
     const token = req.signedCookies?.cookie
@@ -123,6 +124,15 @@ const requireAdmin = (req, res, next) => {
     }
     next();
 };
+
+const requireSuperAdmin = (req,res,next)=>{
+    const token = req.signedCookies?.cookie
+    const user = getUser(token)
+    if(user.userId!=="SuperAdmin"){
+        return res.status(403).json({message: "Forbidden: Super Admin Access only",SuperAdmin: true})
+    }
+    next()
+}
 
 // Middleware for employee role
 const requireEmployee = (req, res, next) => {
@@ -167,6 +177,14 @@ app.get("/usercheck",requireAuth,(req,res)=>{
     const token = req.signedCookies?.cookie
     const branch = getUser(token).branch
     const query = `SELECT * FROM users WHERE userId="${user}" AND password = "${passwd}" AND branch="${branch}"`
+    db.query(query,(err,data)=>{
+        if(err) return res.json(err)
+            return res.json(data)
+    })
+})
+
+app.get("/allusers",requireAuth,requireSuperAdmin,(req,res)=>{
+    const query = "SELECT * FROM users"
     db.query(query,(err,data)=>{
         if(err) return res.json(err)
             return res.json(data)

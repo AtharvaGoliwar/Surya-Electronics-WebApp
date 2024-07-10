@@ -11,6 +11,7 @@ function Employee_Profiles() {
   const [details, setDetails] = useState({});
   const [isSearch, setIsSearch] = useState(false);
   let userInput = "";
+  const url = import.meta.env.VITE_BACKEND_URL;
 
   const handleEmpNameChange = (e) => {
     setEmpNameInput(e.target.value);
@@ -32,7 +33,7 @@ function Employee_Profiles() {
     // }));
     try {
       const params = { user: empNameInput };
-      const res = await axios.get("http://localhost:8800/getuserinfo", {
+      const res = await axios.get(`${url}/getuserinfo`, {
         params,
         withCredentials: true,
       });

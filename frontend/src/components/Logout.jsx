@@ -6,13 +6,10 @@ import { useNavigate } from "react-router-dom";
 
 const Logout = ({ showModal, setShowModal }) => {
   const navigate = useNavigate();
+  const url = import.meta.env.VITE_BACKEND_URL;
   const handleLogout = async () => {
     try {
-      await axios.post(
-        "http://localhost:8800/logout",
-        {},
-        { withCredentials: true }
-      );
+      await axios.post(`${url}/logout`, {}, { withCredentials: true });
       navigate("/");
     } catch (err) {
       console.log(err);

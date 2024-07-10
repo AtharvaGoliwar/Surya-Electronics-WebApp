@@ -17,13 +17,14 @@ export default function Employee() {
   const [Key, setKey] = useState("");
   const [phone, setPhone] = useState("");
   const [flag, setFlag] = useState(true);
+  const url = import.meta.env.VITE_BACKEND_URL;
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchSessionData = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/session", {
+        const res = await axios.get(`${url}/session`, {
           withCredentials: true,
         });
 
@@ -42,9 +43,9 @@ export default function Employee() {
       console.log(user);
       if (user) {
         try {
-          const url = `http://localhost:8800/emp`;
+          const url1 = `${url}/emp`;
           const params = { empid: user };
-          const res1 = await axios.get(url, { params, withCredentials: true });
+          const res1 = await axios.get(url1, { params, withCredentials: true });
           const newData = res1.data;
           setReview({ ...review, empid: user });
 
@@ -94,11 +95,7 @@ export default function Employee() {
 
   const Logout = async () => {
     try {
-      await axios.post(
-        "http://localhost:8800/logout",
-        {},
-        { withCredentials: true }
-      );
+      await axios.post(`${url}/logout`, {}, { withCredentials: true });
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -129,7 +126,7 @@ export default function Employee() {
       try {
         console.log(review);
         await axios.post(
-          "http://localhost:8800/setreview",
+          `${url}/setreview`,
           { empid: user, data: custItems },
           {
             withCredentials: true,

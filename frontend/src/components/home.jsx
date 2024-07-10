@@ -9,6 +9,7 @@ import "./home.css";
 function Home() {
   const [isAdmin, setAdmin] = useState(false);
   const [file, setFile] = useState(null);
+  const url = import.meta.env.VITE_BACKEND_URL;
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -54,15 +55,11 @@ function Home() {
         }
 
         try {
-          const response = await axios.post(
-            "http://localhost:8800/upload",
-            data,
-            {
-              withCredentials: true,
-              maxContentLength: 10000000,
-              maxBodyLength: 10000000,
-            }
-          );
+          const response = await axios.post(`${url}/upload`, data, {
+            withCredentials: true,
+            maxContentLength: 10000000,
+            maxBodyLength: 10000000,
+          });
           console.log(response.data);
           alert("File Uploaded Successfully");
         } catch (error) {
@@ -78,7 +75,7 @@ function Home() {
   useEffect(() => {
     const checkAdmin = async () => {
       try {
-        let res = await axios("http://localhost:8800/admin", {
+        let res = await axios(`${url}/admin`, {
           withCredentials: true,
         });
         console.log(res.data);

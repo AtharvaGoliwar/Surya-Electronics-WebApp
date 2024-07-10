@@ -7,6 +7,7 @@ function ChangePassword() {
   const [showModal, setShowModal] = useState(false);
   const [user, setUser] = useState("");
   const [newpasswd, setNewPasswd] = useState("");
+  const url = import.meta.env.VITE_BACKEND_URL;
 
   const handleChangePasswordClick = (e) => {
     e.preventDefault();
@@ -17,7 +18,7 @@ function ChangePassword() {
     try {
       const params = { user: user, newpasswd: newpasswd };
       await axios.post(
-        "http://localhost:8800/changePassword",
+        `${url}/changePassword`,
         { user: user, newpasswd: newpasswd },
         { withCredentials: true }
       );

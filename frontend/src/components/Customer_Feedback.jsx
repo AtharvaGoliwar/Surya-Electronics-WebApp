@@ -8,12 +8,13 @@ function Customer_Feedback() {
   const [dateInput, setDateInput] = useState("");
   const [datesData, setDatesData] = useState([]);
   const [data, setData] = useState([]);
+  const url = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const fetchData = async () => {
       const params = { date: [] };
       try {
-        let res = await axios.get("http://localhost:8800/alldata", {
+        let res = await axios.get(`${url}/alldata`, {
           withCredentials: true,
         });
         const responseData = res.data;
@@ -77,14 +78,14 @@ function Customer_Feedback() {
       for (let i = 0; i < users.length; i++) {
         console.log("hel");
         let res2 = await axios.post(
-          "http://localhost:8800/truncateTable",
+          `${url}/truncateTable`,
           {
             userId: users[i],
           },
           { withCredentials: true }
         );
         let res1 = await axios.post(
-          "http://localhost:8800/send",
+          `${url}/send`,
           {
             userId: users[i],
             date: selectedDates,

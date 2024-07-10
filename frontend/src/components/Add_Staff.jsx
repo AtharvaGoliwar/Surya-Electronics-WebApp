@@ -11,6 +11,7 @@ function StaffRegistrationForm() {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [branch, setBranch] = useState("");
+  const url = import.meta.env.VITE_BACKEND_URL;
   const handleSubmit = async (e) => {
     e?.preventDefault();
     // alert(user);
@@ -27,11 +28,11 @@ function StaffRegistrationForm() {
       branch: branch, //here is the new line added
     };
     try {
-      await axios.post("http://localhost:8800/addUser", userDetails, {
+      await axios.post(`${url}/addUser`, userDetails, {
         withCredentials: true,
       });
       const res = await axios.post(
-        "http://localhost:8800/createTable",
+        `${url}/createTable`,
         {
           user: user,
           role: role,

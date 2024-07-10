@@ -8,6 +8,7 @@ function StaffDeletionForm() {
   const [user, setUser] = useState("");
   const [passwd, setPasswd] = useState("");
   const [name, setName] = useState("");
+  const url = import.meta.env.VITE_BACKEND_URL;
 
   const handleDeleteClick = (e) => {
     // Perform deletion logic (e.g., call an API to delete staff record)
@@ -20,7 +21,7 @@ function StaffDeletionForm() {
     // Perform actual deletion (e.g., call an API)
     try {
       const params = { user: user, passwd: passwd };
-      let res1 = await axios.get("http://localhost:8800/usercheck", {
+      let res1 = await axios.get(`${url}/usercheck`, {
         params,
         withCredentials: true,
       });
@@ -39,7 +40,7 @@ function StaffDeletionForm() {
         res1.data[0]["userId"] === user &&
         res1.data[0]["password"] === passwd
       ) {
-        await axios.delete("http://localhost:8800/deleteUser", {
+        await axios.delete(`${url}/deleteUser`, {
           data: { user, passwd, role },
           withCredentials: true,
         });

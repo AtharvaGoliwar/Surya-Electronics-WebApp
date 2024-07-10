@@ -18,11 +18,12 @@ function Del_Staff_Data() {
   const [users, setUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [deletedUsers, setDeletedUsers] = useState([]);
+  const url = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/deletedemp", {
+        const res = await axios.get(`${url}/deletedemp`, {
           withCredentials: true,
         });
         console.log(res.data);
@@ -36,7 +37,7 @@ function Del_Staff_Data() {
           // console.log(res.data[i]);
           try {
             const params = { empid: res.data[i] };
-            const res1 = await axios.get("http://localhost:8800/emp", {
+            const res1 = await axios.get(`${url}/emp`, {
               params,
               withCredentials: true,
             });
@@ -60,7 +61,7 @@ function Del_Staff_Data() {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/users", {
+        const res = await axios.get(`${url}/users`, {
           withCredentials: true,
         });
         console.log(res?.data);
@@ -203,7 +204,7 @@ function Del_Staff_Data() {
     console.log(updatedData);
     try {
       const res = await axios.post(
-        "http://localhost:8800/sendextradata",
+        `${url}/sendextradata`,
         {
           users: selectedUsers,
           data: updatedData,

@@ -11,11 +11,11 @@ function See_Feedback() {
   const [employeeInput, setEmployeeInput] = useState("");
   const [employeesData, setEmployeesData] = useState([]);
   const [records, setRecords] = useState({});
-
+  const url = import.meta.env.VITE_BACKEND_URL;
   useEffect(() => {
     const fetchRecords = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/users", {
+        const res = await axios.get(`${url}/users`, {
           withCredentials: true,
         });
         const newRecords = {};
@@ -24,7 +24,7 @@ function See_Feedback() {
           if (res.data[i]["role"] !== "admin") {
             const employee = res.data[i]["userId"];
             const params = { empid: res.data[i]["userId"] };
-            const res1 = await axios.get("http://localhost:8800/emp", {
+            const res1 = await axios.get(`${url}/emp`, {
               params,
               withCredentials: true,
             });
@@ -78,11 +78,9 @@ function See_Feedback() {
 
   const handleUpdate = async () => {
     try {
-      const res = await axios.post(
-        "http://localhost:8800/finalreview",
-        records,
-        { withCredentials: true }
-      );
+      const res = await axios.post(`${url}/finalreview`, records, {
+        withCredentials: true,
+      });
     } catch (err) {
       console.log(err);
     }
@@ -92,7 +90,7 @@ function See_Feedback() {
   const handleFileDownload = async () => {
     let jsonData = [];
     try {
-      let res = await axios.get("http://localhost:8800/alldata", {
+      let res = await axios.get(`${url}/alldata`, {
         withCredentials: true,
       });
       jsonData = res.data;

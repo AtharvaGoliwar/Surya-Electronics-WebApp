@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+// import config from "../config";
 import "./login.css";
 
 export default function Login() {
@@ -12,13 +13,15 @@ export default function Login() {
   const login = async (e) => {
     e?.preventDefault();
     // const dets = [parseInt(user), passwd];
-    const url = process.env.REACT_APP_BACKEND_URL;
+    // const url = config.backendUrl;
+    const url = import.meta.env.VITE_BACKEND_URL;
     console.log(url);
     try {
       const res = await axios.post(
         // "http://localhost:8800/login",
         // `${process.env.REACT_APP_BACKEND_URL}/login`,
-        "https://surya-electronics-webapp.onrender.com/login",
+        // "https://surya-electronics-webapp.onrender.com/login",
+        `${url}/login`,
         {
           user,
           passwd,

@@ -64,7 +64,8 @@ const db = mysql.createConnection({
     host:process.env.HOST,
     user:process.env.USER,
     password:process.env.PASSWORD,
-    database:process.env.DATABASE
+    database:process.env.DATABASE,
+    connectionLimit: 50
 })
 
 // Connect to the database
@@ -138,7 +139,7 @@ app.get('/employee', requireAuth, requireEmployee, (req, res) => {
 
 // Protected route for both admin and employees
 app.get('/dashboard', requireAuth, (req, res) => {
-    res.json({ message: 'This is a protected route for both admin and employees', user: req.session.user });
+    res.json({ message: 'This is a protected route for both admin and employees', user:true });
 });
 
 app.post('/changepassword',requireAuth,requireAdmin,(req,res)=>{
@@ -326,6 +327,14 @@ app.post('/logout',requireAuth, (req, res) => {
         signed: true,
         sameSite: "none",
         secure: true
+      });
+      // Close the connection when done with it
+    db.end((err) => {
+        if (err) {
+          console.error('Error closing MySQL connection:', err);
+        } else {
+          console.log('MySQL connection closed');
+        }
       });
     // cookies.set("token",null,{httpOnly:true})
 

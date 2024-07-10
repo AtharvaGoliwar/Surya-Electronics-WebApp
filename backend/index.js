@@ -172,7 +172,7 @@ app.get("/getuserinfo",requireAuth,requireAdmin,(req,res)=>{
     const token = req.signedCookies?.cookie
     const branch = getUser(token).branch
     // console.log(branch)
-    const query = `SELECT * FROM USERS WHERE userId="${user}" AND branch="${branch}"`
+    const query = `SELECT * FROM users WHERE userId="${user}" AND branch="${branch}"`
     db.query(query,(err,data)=>{
         if(err) return res.json(err)
             return res.json(data)

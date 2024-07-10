@@ -21,17 +21,41 @@ app.use(session({
   }));
 
 app.use(express.json({limit:"10mb"}))
+
+// Define the allowed origins
+const allowedOrigins = [
+    'http://localhost:5173',
+    'https://surya-electronics-web-app.vercel.app'
+  ];
+  
+  // CORS middleware configuration
+  app.use(cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps, curl, etc.)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+        return callback(new Error(msg), false);
+      }
+    },
+    credentials: true
+  }));
+  
+
+
 // app.use(cors({origin:"http://localhost:5173",credentials:true}))
 // app.use(cors({origin:"https://surya-electronics-web-app.vercel.app/",credentials:true}))
 // Configure CORS options
-const corsOptions = {
-    origin: 'https://surya-electronics-web-app.vercel.app', // Your frontend URL
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true
-  };
+// const corsOptions = {
+//     origin: 'https://surya-electronics-web-app.vercel.app', // Your frontend URL
+//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//     credentials: true
+//   };
   
-  // Use the CORS middleware
-  app.use(cors(corsOptions));
+//   // Use the CORS middleware
+//   app.use(cors(corsOptions));
   
 // app.use(cors({origin:"https://tvbfxxwf-5173.inc1.devtunnels.ms/",credentials:true}))
 

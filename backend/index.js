@@ -249,7 +249,7 @@ app.post('/createTable',requireAuth,requireAdmin, (req, res) => {
 
         })
         const query = `
-        CREATE TABLE ${tableName} (
+        CREATE TABLE \`${tableName}\` (
             Branch VARCHAR(255),
             docNum VARCHAR(255),
             \`Invoice Date\` DATE,

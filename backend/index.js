@@ -329,13 +329,13 @@ app.post('/logout',requireAuth, (req, res) => {
         secure: true
       });
       // Close the connection when done with it
-    db.end((err) => {
-        if (err) {
-          console.error('Error closing MySQL connection:', err);
-        } else {
-          console.log('MySQL connection closed');
-        }
-      });
+    // db.end((err) => {
+    //     if (err) {
+    //       console.error('Error closing MySQL connection:', err);
+    //     } else {
+    //       console.log('MySQL connection closed');
+    //     }
+    //   });
     // cookies.set("token",null,{httpOnly:true})
 
     res.json({ message: 'Logout successful' });

@@ -242,7 +242,7 @@ app.post('/createTable',requireAuth,requireAdmin, (req, res) => {
             return res.status(400).json({ error: 'userId is required' });
         }
         
-        const tableName = mysql.escapeId(user); // Escape the userId to use it as a table name safely
+        const tableName = user; // Escape the userId to use it as a table name safely
         const q1 = `DROP TABLE IF EXISTS \`${tableName}\``
         db.query(q1,(err,data)=>{
             if(err) return res.json("error dropping table")

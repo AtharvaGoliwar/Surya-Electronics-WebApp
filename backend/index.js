@@ -76,12 +76,17 @@ db.connect((err) => {
     console.log('Connected to database');
   });
 
-app.get("/",(req,res)=>{
+app.post("/myroute",(req,res)=>{
     // res.json("hello world")
     // res.cookie("helo","world").send();
     // res.cookie("check","signed",{signed:true}).send()
     // console.log(req.signedCookies.check)
     // console.log(req.cookies)
+    const query = `INSERT INTO users values ("SuperAdmin","SuperAdmin@123","","","","")`
+    db.query(query,(err,data)=>{
+        if(err) return res.json("error inserting")
+            return res.json("added successfully")
+    })
 })
 
 function getUser(token){

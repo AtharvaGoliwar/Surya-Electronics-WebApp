@@ -468,6 +468,10 @@ app.get("/emp",requireAuth,(req,res)=>{
 app.get("/deletedemp",requireAuth,requireAdmin,(req,res)=>{
     const token = req.signedCookies?.cookie
     const branch = getUser(token).branch
+    const q1 = "CREATE TABLE deletedemp(userId varchar(255), password varchar(20), branch varchar(255))"
+    db.query(q1,(err,data)=>{
+        if(err) return res.json({error:err})
+    })
     const query = "SELECT * FROM deletedemp WHERE branch=? order by userId"
     let users=[];
     let l=0;

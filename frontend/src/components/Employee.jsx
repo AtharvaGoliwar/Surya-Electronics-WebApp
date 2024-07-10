@@ -16,10 +16,26 @@ export default function Employee() {
   const [displaySet, setDisplaySet] = useState(null);
   const [Key, setKey] = useState("");
   const [phone, setPhone] = useState("");
-  const [flag, setFlag] = useState(true);
+  const [flag, setFlag] = useState(false);
   const url = import.meta.env.VITE_BACKEND_URL;
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await axios.get(`${url}/dashboard`, {
+          withCredentials: true,
+        });
+        if (res.data.user) {
+          setFlag(true);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    checkAuth();
+  }, []);
 
   useEffect(() => {
     const fetchSessionData = async () => {
@@ -176,9 +192,19 @@ export default function Employee() {
     setDisplaySet(selectedItem);
   };
 
+  if (!flag) {
+    console.log(flag);
+    return (
+      <>
+        <h1>Only Authenticated Users are allowed to access!!!</h1>
+      </>
+    );
+  }
+
   return (
     <>
       {/* <TaskBar /> */}
+      {console.log(flag)}
       <div
         style={{
           display: "flex",

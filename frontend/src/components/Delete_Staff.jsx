@@ -44,6 +44,7 @@ function StaffDeletionForm() {
           data: { user, passwd, role },
           withCredentials: true,
         });
+        alert("Successfully deleted user", user);
       }
       setUser("");
       setPasswd("");

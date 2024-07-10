@@ -149,6 +149,7 @@ export default function Employee() {
           }
         );
         console.log("review sent");
+        alert("All reviews sent successfully");
       } catch (err) {
         console.log(err);
       }

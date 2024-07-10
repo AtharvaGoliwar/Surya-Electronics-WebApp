@@ -213,6 +213,7 @@ function Del_Staff_Data() {
         },
         { withCredentials: true }
       );
+      alert("Extra Data sent successfully");
     } catch (err) {
       console.log(err);
     }

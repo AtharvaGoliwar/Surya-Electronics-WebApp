@@ -93,6 +93,7 @@ function Customer_Feedback() {
           { withCredentials: true }
         );
       }
+      alert("Data sent successfully");
       //   let res1 = await axios.post("http://localhost:8800/send", {
       //     userId: "123",
       //   });

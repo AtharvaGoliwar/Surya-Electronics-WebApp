@@ -22,6 +22,7 @@ function ChangePassword() {
         { user: user, newpasswd: newpasswd },
         { withCredentials: true }
       );
+      alert("Password Changed Successfully for ", user);
       setUser("");
       setNewPasswd("");
     } catch (err) {

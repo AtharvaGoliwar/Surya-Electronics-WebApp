@@ -160,7 +160,7 @@ app.get("/usercheck",requireAuth,(req,res)=>{
     const passwd = req.query.passwd
     const token = req.signedCookies?.cookie
     const branch = getUser(token).branch
-    const query = `SELECT * FROM USERS WHERE userId="${user}" AND password = "${passwd}" AND branch="${branch}"`
+    const query = `SELECT * FROM users WHERE userId="${user}" AND password = "${passwd}" AND branch="${branch}"`
     db.query(query,(err,data)=>{
         if(err) return res.json(err)
             return res.json(data)
@@ -182,7 +182,7 @@ app.get("/getuserinfo",requireAuth,requireAdmin,(req,res)=>{
 app.get("/users",requireAuth,(req,res)=>{
     const token = req.signedCookies?.cookie
     const branch = getUser(token).branch
-    const query = "SELECT * FROM USERS WHERE branch=?"
+    const query = "SELECT * FROM users WHERE branch=?"
     db.query(query,[branch],(err,data)=>{
         if(err) return res.json(err)
             return res.json(data)

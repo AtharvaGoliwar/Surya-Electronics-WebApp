@@ -808,7 +808,7 @@ app.get("/alldata",requireAuth,requireAdmin, (req, res) => {
     }
 });
 
-app.post("/upload",requireAuth,requireSuperAdmin,(req,res)=>{
+app.post("/upload",requireAuth,requireAdmin,(req,res)=>{
     const {headers, rows} = req.body
     const table = "customers_small";
     const columns = headers.map(header=> `\`${header}\` varchar(255)`).join(',')

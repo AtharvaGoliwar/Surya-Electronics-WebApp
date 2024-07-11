@@ -815,6 +815,7 @@ app.post("/upload",requireAuth,requireSuperAdmin,(req,res)=>{
     const query1 = `DROP TABLE IF EXISTS ${table}`
     db.query(query1,(err,data)=>{
         if(err) return res.json({error:err, message:"table did not drop"})
+            console.log("table dropped")
     })
     
     const createTableQuery = `CREATE TABLE IF NOT EXISTS ${table} (${columns},review varchar(255) not null default "", description varchar(255) not null default "")`;

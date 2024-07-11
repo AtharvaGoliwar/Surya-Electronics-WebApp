@@ -55,7 +55,7 @@ function Home() {
         }
 
         try {
-          const response = await axios.post(`${url}/upload`, data, {
+          const response = await axios.post(`${url}/uploadIncentive`, data, {
             withCredentials: true,
             maxContentLength: 10000000,
             maxBodyLength: 10000000,
@@ -100,7 +100,7 @@ function Home() {
       <Sidebar />
       <div className="main-content">
         <div className="upload-section">
-          <h2>Upload Excel File</h2>
+          <h2>Upload Incentive Excel File</h2>
           <input type="file" accept=".xls,.xlsx" onChange={handleFileChange} />
           <div>
             <button onClick={() => handleFileUpload()}>Upload</button>

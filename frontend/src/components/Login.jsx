@@ -8,10 +8,12 @@ import "./login.css";
 export default function Login() {
   const [user, setUser] = useState("");
   const [passwd, setPasswd] = useState("");
+  const [loading, setLoading] = useState(false);
   const [style, setStyle] = useState({ display: "none" });
   const navigate = useNavigate();
   const login = async (e) => {
     e?.preventDefault();
+    setLoading(true);
     // const dets = [parseInt(user), passwd];
     // const url = config.backendUrl;
     const url = import.meta.env.VITE_BACKEND_URL;
@@ -30,6 +32,10 @@ export default function Login() {
       );
       console.log(res?.data.username);
       console.log(res?.data.passwd);
+      if (res.data.username === "SuperAdmin") {
+        navigate("/SuperAdmin");
+        return;
+      }
       if (res?.data.role === "admin") {
         navigate("/admin");
       } else {
@@ -52,32 +58,38 @@ export default function Login() {
   };
   return (
     <>
-      <div className="login-container">
-        <div className="login-form">
-          <h2>Login To Your Account</h2>
-          <div className="input-group">
-            <label htmlFor="email">Username</label>
-            <input
-              type="text"
-              placeholder="User ID"
-              onChange={(e) => setUser(e.target.value)}
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              placeholder="password"
-              onChange={(e) => setPasswd(e.target.value)}
-            />
-          </div>
-
-          <button onClick={() => login()} className="login">
-            Login
-          </button>
-          <div style={style}>Successful Login</div>
+      {loading ? (
+        <div className="loading-screen">
+          <div class="spinner"></div>
         </div>
-      </div>
+      ) : (
+        <div className="login-container">
+          <div className="login-form">
+            <h2>Login To Your Account</h2>
+            <div className="input-group">
+              <label htmlFor="email">Username</label>
+              <input
+                type="text"
+                placeholder="User ID"
+                onChange={(e) => setUser(e.target.value)}
+              />
+            </div>
+            <div className="input-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                placeholder="password"
+                onChange={(e) => setPasswd(e.target.value)}
+              />
+            </div>
+
+            <button onClick={() => login()} className="login">
+              Login
+            </button>
+            <div style={style}>Successful Login</div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

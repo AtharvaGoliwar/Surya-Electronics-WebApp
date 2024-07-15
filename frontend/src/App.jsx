@@ -17,7 +17,10 @@ import Login from "./components/Login";
 import Employee from "./components/Employee";
 import ExtraData from "./components/ExtraData";
 import ChangePassword from "./components/ChangePassword";
-
+import Track_Claims from "./components/Track_Claims";
+import Incentive_Tracker from "./components/Incentive_Tracker";
+import SuperAdmin from "./components/SuperAdmin";
+import SuperEmpProfiles from "./components/Super_EmpProfiles";
 function App() {
   const [count, setCount] = useState(0);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -64,6 +67,10 @@ function App() {
           <Route path="/emp" element={<Employee />} />
           <Route path="/delemp" element={<ExtraData />} />
           <Route path="/ChangePassword" element={<ChangePassword />} />
+          <Route path="/Track_Claims" element={<Track_Claims />} />
+          <Route path="/Incentive_Tracker" element={<Incentive_Tracker />} />
+          <Route path="/SuperAdmin" element={<SuperAdmin />} />
+          <Route path="/SuperEmpProfiles" element={<SuperEmpProfiles />} />
         </Routes>
       </BrowserRouter>
     </>

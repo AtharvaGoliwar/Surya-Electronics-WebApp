@@ -17,8 +17,8 @@ import Login from "./components/Login";
 import Employee from "./components/Employee";
 import ExtraData from "./components/ExtraData";
 import ChangePassword from "./components/ChangePassword";
-import Track_Claims from "./components/Track_Claims";
-import Incentive_Tracker from "./components/Incentive_Tracker";
+// import Track_Claims from "./components/Track_Claims";
+// import Incentive_Tracker from "./components/Incentive_Tracker";
 import SuperAdmin from "./components/SuperAdmin";
 import SuperEmpProfiles from "./components/Super_EmpProfiles";
 function App() {

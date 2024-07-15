@@ -1,0 +1,73 @@
+.home-container {
+    display: flex;
+    background-color: #51b1ffdb;
+    margin-left: 28vh;
+  }
+  
+  /* .main-content {
+    
+  } */
+  
+  .upload-section,
+  .employee-profiles-section {
+    flex: 1;
+    background-color: white;
+    margin: 2vh;
+    padding: 4vh;
+    border-radius: 1vh;
+    box-shadow: 0 0.8vh 1.6vh rgba(0, 0, 0, 0.1);
+  }
+  
+  .upload-section h2,
+  .employee-profiles-section h3 {
+    text-align: center;
+    color: black;
+  }
+  
+  #add-bp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+  }
+  
+  .bp-input {
+    background-color: #333;
+    color: #fff;
+    border: 0.2vh solid #000;
+    border-radius: 0.8vh;
+    padding: 2vh;
+    font-size: 3vh;
+  }
+  
+  .btn {
+    padding: 2vh;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0.8vh;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .results {
+    margin-top: 4vh;
+  }
+  
+  .bp-entry {
+    background-color: #f9f9f9;
+    padding: 2vh;
+    border-radius: 0.8vh;
+  }
+  
+  .bp-header h4 {
+    margin: 0;
+    font-size: 3vh;
+  }
+  
+  .result-item {
+    margin-top: 2vh;
+  }

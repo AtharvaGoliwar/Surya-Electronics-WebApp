@@ -157,6 +157,10 @@ app.get('/dashboard', requireAuth, (req, res) => {
     res.json({ message: 'This is a protected route for both admin and employees', user:true });
 });
 
+app.get("/superadmin",requireAuth,requireSuperAdmin,(req,res)=>{
+    res.json({message: "This is an SuperAdmin only route", superadmin: true})
+})
+
 app.post('/changepassword',requireAuth,requireAdmin,(req,res)=>{
     // const {user,newpasswd} = req.body 
     const user = req.body.user

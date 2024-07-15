@@ -12,6 +12,10 @@ export default function Login() {
   const [style, setStyle] = useState({ display: "none" });
   const navigate = useNavigate();
   const login = async (e) => {
+    if (user === "" || passwd === "") {
+      alert("Enter all details");
+      return;
+    }
     e?.preventDefault();
     setLoading(true);
     // const dets = [parseInt(user), passwd];

@@ -67,8 +67,8 @@ function App() {
           <Route path="/emp" element={<Employee />} />
           <Route path="/delemp" element={<ExtraData />} />
           <Route path="/ChangePassword" element={<ChangePassword />} />
-          <Route path="/Track_Claims" element={<Track_Claims />} />
-          <Route path="/Incentive_Tracker" element={<Incentive_Tracker />} />
+          {/* <Route path="/Track_Claims" element={<Track_Claims />} />
+          <Route path="/Incentive_Tracker" element={<Incentive_Tracker />} /> */}
           <Route path="/SuperAdmin" element={<SuperAdmin />} />
           <Route path="/SuperEmpProfiles" element={<SuperEmpProfiles />} />
         </Routes>

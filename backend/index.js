@@ -82,10 +82,15 @@ app.post("/myroute",(req,res)=>{
     // res.cookie("check","signed",{signed:true}).send()
     // console.log(req.signedCookies.check)
     // console.log(req.cookies)
-    const query = `INSERT INTO users values ("SuperAdmin","SuperAdmin@123","","","","")`
+    // const query = `INSERT INTO users values ("SuperAdmin","SuperAdmin@123","","","","")`
+    // db.query(query,(err,data)=>{
+    //     if(err) return res.json("error inserting")
+    //         return res.json("added successfully")
+    // })
+    const query = "ALTER TABLE users MODIFY userId varchar(255) COLLATE utf8_bin PRIMARY KEY";
     db.query(query,(err,data)=>{
-        if(err) return res.json("error inserting")
-            return res.json("added successfully")
+        if(err) return res.json({error: err})
+            return res.json({message: "Alter userId column successful"})
     })
 })
 

@@ -882,14 +882,14 @@ app.post("/uploadIncentive",(req,res)=>{
     });
 })
 
-app.post("/sendIncentive", async (req,res)=>{
+app.post("/sendIncentive",requireAuth, async (req,res)=>{
     const userId = req.body.empid;
     const data = req.body.data;
 
     const updatePromises = data.map((rec)=>{
-        const updateQuery = `UPDATE incentive SET SNLC=?, sellingPrice=?, typeSelling=?, incentiveType=?, SRPQty=?, incentiveTotal=?, remark=? WHERE salesEmp=?`
+        const updateQuery = `UPDATE incentive SET SNLC=?, sellingPrice=?, typeSelling=?, incentiveType=?, SRPQty=?, incentiveTotal=?, remark=? WHERE salesEmp=? and ItemName=?`
         return new Promise((resolve,reject)=>{
-            db.query(updateQuery,[rec.SNLC, rec.sellingPrice, rec.typeSelling, rec.incentiveType, rec.SRPQty, rec.incentiveTotal, rec.remark, rec.salesEmp],(err,data)=>{
+            db.query(updateQuery,[rec.SNLC, rec.sellingPrice, rec.typeSelling, rec.incentiveType, rec.SRPQty, rec.incentiveTotal, rec.remark, rec.salesEmp,rec.ItemName],(err,data)=>{
                 if (err) {
                     console.log('Error Updating data:', err);
                     return reject(err);

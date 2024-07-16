@@ -812,7 +812,7 @@ app.get("/alldata",requireAuth,requireAdmin, (req, res) => {
     }
 });
 
-app.post("/upload",requireAuth,requireAdmin,(req,res)=>{
+app.post("/upload",requireAuth,requireSuperAdmin,(req,res)=>{
     const {headers, rows} = req.body
     const table = "customers_small";
     const columns = headers.map(header=> `\`${header}\` varchar(255)`).join(',')
@@ -844,6 +844,71 @@ app.post("/upload",requireAuth,requireAdmin,(req,res)=>{
         });
     });
 })
+
+app.post("/uploadIncentive",(req,res)=>{
+    const {headers, rows} = req.body
+    const table = "incentive";
+    const columns = headers.map(header=> `\`${header}\` varchar(255)`).join(',')
+    const query1 = `DROP TABLE IF EXISTS ${table}`
+    db.query(query1,(err,data)=>{
+        if(err) return res.json({error:err, message:"table did not drop"})
+    })
+    
+    const createTableQuery = `CREATE TABLE IF NOT EXISTS ${table} (${columns},SNLC varchar(255) not null default "", sellingPrice varchar(255) not null default "",typeSelling varchar(255) not null default "",incentiveType varchar(255) not null default "",SRPQty varchar(255) not null default "",incentiveTotal varchar(255) not null default "",remark varchar(255) not null default "")`;
+    db.query(createTableQuery, (err, result) => {
+        if (err) {
+        console.error('Error creating table:', err);
+        res.status(500).send('Error creating table');
+        return;
+        }
+
+        const placeholders = rows.map(row => `(${headers.map(() => '?').join(',')})`).join(',');
+        const flatValues = rows.reduce((acc, row) => acc.concat(headers.map(header => row[header])), []);
+
+        const insertQuery = `INSERT INTO ${table} (${headers.map(header => `\`${header}\``).join(',')}) VALUES ${placeholders}`;
+        db.query(insertQuery, flatValues, (err, result) => {
+        if (err) {
+            console.error('Error inserting data:', err);
+            res.status(500).send('Error inserting data');
+            return;
+        }
+        res.send('Table created and data inserted successfully');
+        });
+    });
+})
+
+app.post("/sendIncentive", async (req,res)=>{
+    const userId = req.body.empid;
+    const data = req.body.data;
+
+    const updatePromises = data.map((rec)=>{
+        const updateQuery = `UPDATE incentive SET SNLC=?, sellingPrice=?, typeSelling=?, incentiveType=?, SRPQty=?, incentiveTotal=?, remark=? WHERE salesEmp=?`
+        return new Promise((resolve,reject)=>{
+            db.query(updateQuery,[rec.SNLC, rec.sellingPrice, rec.typeSelling, rec.incentiveType, rec.SRPQty, rec.incentiveTotal, rec.remark, rec.salesEmp],(err,data)=>{
+                if (err) {
+                    console.log('Error Updating data:', err);
+                    return reject(err);
+                }
+                resolve(result);
+            })
+        })
+    })
+    try {
+        await Promise.all(updatePromises);
+        res.json({ message: 'All reviews updated successfully' });
+    } catch (err) {
+        res.status(500).json({ error: "Error in updation", details: err });
+    }
+})
+
+app.get("/incentiveAllData",(req,res)=>{
+    const query = "SELECT * FROM incentive"
+    db.query(query,(err,data)=>{
+        if(err) return res.json({error: err})
+            return res.json(data)
+    })
+})
+
 
 
 const port = process.env.PORT || 8800;

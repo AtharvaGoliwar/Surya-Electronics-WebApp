@@ -140,6 +140,8 @@ export default function Incentive_Tracker() {
 
   return (
     <>
+      {console.log(formData)}
+      {console.log(incentiveData)}
       <div
         style={{
           display: "flex",

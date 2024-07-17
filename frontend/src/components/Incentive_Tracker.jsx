@@ -57,27 +57,27 @@ export default function Incentive_Tracker() {
             ? setStyle({ display: "block" })
             : setStyle({ display: "none" });
 
-          //   let updatedFormData = {};
-          //   let temp = {};
-          //   newData.forEach((rec) => {
-          //     updatedFormData[rec.ItemName] = {
-          //       docDate: rec.docDate,
-          //       ItemCode: rec.ItemCode,
-          //       ItemName: rec.ItemName,
-          //       ItemGroup: rec.ItemGroup,
-          //       Quantity: rec.Quantity,
-          //       ItemTotal: rec.ItemTotal,
-          //     };
-          //     temp[rec.bpcode] = [];
-          //   });
-          //   newData.map((rec) => {
-          //     temp[rec.bpcode].push(rec);
-          //   });
-          //   setCustItems(temp);
-          //   setFormData((prevFormData) => ({
-          //     ...prevFormData,
-          //     ...updatedFormData,
-          //   }));
+          let updatedFormData = {};
+          let temp = {};
+          newData.forEach((rec) => {
+            updatedFormData[rec.ItemName] = {
+              docDate: rec.docDate,
+              ItemCode: rec.ItemCode,
+              ItemName: rec.ItemName,
+              ItemGroup: rec.ItemGroup,
+              Quantity: rec.Quantity,
+              ItemTotal: rec.ItemTotal,
+            };
+            temp[rec.bpcode] = [];
+          });
+          // newData.map((rec) => {
+          //   temp[rec.bpcode].push(rec);
+          // });
+          // setCustItems(temp);
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            ...updatedFormData,
+          }));
         } catch (err) {
           console.log(err);
         }

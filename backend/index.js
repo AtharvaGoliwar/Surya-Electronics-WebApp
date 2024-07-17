@@ -60,34 +60,20 @@ const allowedOrigins = [
 // app.use(cors({origin:"https://tvbfxxwf-5173.inc1.devtunnels.ms/",credentials:true}))
 
 
-const db = mysql.createPool({
+const db = mysql.createConnection({
     host:process.env.HOST,
     user:process.env.USER,
     password:process.env.PASSWORD,
     database:process.env.DATABASE,
-    connectionLimit: 500,
-    waitForConnections: true,
-    queueLimit: 0
-
+    connectionLimit: 500
 })
 
 // Connect to the database
-// db.connect((err) => {
-//     if (err) {
-//       throw err;
-//     }
-//     console.log('Connected to database');
-//   });
-db.getConnection((err, connection) => {
+db.connect((err) => {
     if (err) {
-      console.error('Error connecting to database:', err);
-      return;
+      throw err;
     }
-
-    console.log('Connected to database successfully.');
-
-    // Release the connection back to the pool
-    connection.release();
+    console.log('Connected to database');
   });
 
 app.post("/myroute",(req,res)=>{
@@ -383,11 +369,7 @@ app.post('/logout',requireAuth, (req, res) => {
     //     }
     //   });
     // cookies.set("token",null,{httpOnly:true})
-    // db.end((err)=>{
-    //     if(err){
-    //         console.error()
-    //     }
-    // })
+
     res.json({ message: 'Logout successful' });
   });
 

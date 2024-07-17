@@ -904,9 +904,9 @@ app.post("/sendIncentive",requireAuth, async (req,res)=>{
     const table = `incentive_${branch}`;
 
     const updatePromises = data.map((rec)=>{
-        const updateQuery = `UPDATE ${table} SET SNLC=?, sellingPrice=?, typeSelling=?, incentiveType=?, SRPQty=?, incentiveTotal=?, remark=? WHERE salesEmp=? and ItemName=?`
+        const updateQuery = `UPDATE ${table} SET SNLC=?, sellingPrice=?, typeSelling=?, incentiveType=?, SRPQty=?, incentiveTotal=?, remark=? WHERE salesEmp=? and ItemName=? and CardName=?`
         return new Promise((resolve,reject)=>{
-            db.query(updateQuery,[rec.SNLC, rec.sellingPrice, rec.typeSelling, rec.incentiveType, rec.SRPQty, rec.incentiveTotal, rec.remark, rec.salesEmp,rec.ItemName],(err,result)=>{
+            db.query(updateQuery,[rec.SNLC, rec.sellingPrice, rec.typeSelling, rec.incentiveType, rec.SRPQty, rec.incentiveTotal, rec.remark, rec.salesEmp,rec.ItemName,rec.CardName],(err,result)=>{
                 if (err) {
                     console.log('Error Updating data:', err);
                     return reject(err);

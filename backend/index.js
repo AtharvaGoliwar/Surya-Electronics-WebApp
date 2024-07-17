@@ -72,11 +72,22 @@ const db = mysql.createPool({
 })
 
 // Connect to the database
-db.connect((err) => {
+// db.connect((err) => {
+//     if (err) {
+//       throw err;
+//     }
+//     console.log('Connected to database');
+//   });
+db.getConnection((err, connection) => {
     if (err) {
-      throw err;
+      console.error('Error connecting to database:', err);
+      return;
     }
-    console.log('Connected to database');
+
+    console.log('Connected to database successfully.');
+
+    // Release the connection back to the pool
+    connection.release();
   });
 
 app.post("/myroute",(req,res)=>{

@@ -65,7 +65,7 @@ const db = mysql.createConnection({
     user:process.env.USER,
     password:process.env.PASSWORD,
     database:process.env.DATABASE,
-    connectionLimit: 500
+    connectionLimit: 50
 })
 
 // Connect to the database

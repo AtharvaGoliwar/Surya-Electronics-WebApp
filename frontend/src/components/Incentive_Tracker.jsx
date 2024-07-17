@@ -59,7 +59,7 @@ export default function Incentive_Tracker() {
 
           let updatedFormData = {};
           let temp = {};
-          newData.forEach((rec) => {
+          newUpdatedData.forEach((rec) => {
             updatedFormData[rec.ItemName] = {
               docDate: rec.docDate,
               ItemCode: rec.ItemCode,

@@ -51,6 +51,7 @@ export default function Incentive_Tracker() {
             }
           }
           //   setFormData({ ...formData, empid: user });
+          console.log(newUpdatedData);
           setIncentiveData(newUpdatedData);
           //   setDisplayData(newData);
           newData.length === 0
@@ -90,14 +91,29 @@ export default function Incentive_Tracker() {
   const Send = async () => {
     let flag = true;
     console.log(formData);
-    Object.keys(formData).map((item) => {
+    // Object.keys(formData).map((item) => {
+    //   if (
+    //     formData[item].SNLC === "" ||
+    //     formData[item].SELLING_PRICE === "" ||
+    //     formData[item].SNLC_ONLINE_EW === "" ||
+    //     formData[item].INCENTIVE_TYPE === "" ||
+    //     formData[item].SRP_QTY === "" ||
+    //     formData[item].REMARK === ""
+    //   ) {
+    //     alert("Set all values before sending");
+    //     flag = false;
+    //     return;
+    //   }
+    // });
+    incentiveData.map((item) => {
       if (
-        formData[item].SNLC === "" ||
-        formData[item].SELLING_PRICE === "" ||
-        formData[item].SNLC_ONLINE_EW === "" ||
-        formData[item].INCENTIVE_TYPE === "" ||
-        formData[item].SRP_QTY === "" ||
-        formData[item].REMARK === ""
+        item.SNLC === "" ||
+        item.sellingPrice === "" ||
+        item.incentiveType === "" ||
+        item.typeSelling === "" ||
+        item.SRPQty === "" ||
+        item.remark === "" ||
+        item.incentiveTotal === ""
       ) {
         alert("Set all values before sending");
         flag = false;
@@ -111,9 +127,13 @@ export default function Incentive_Tracker() {
       });
       try {
         // await axios.post("http://localhost:8800/setIncentive", formData, {
-        await axios.post(`${url}/sendIncentive`, sendData, {
-          withCredentials: true,
-        });
+        await axios.post(
+          `${url}/sendIncentive`,
+          { data: sendData, empid: user },
+          {
+            withCredentials: true,
+          }
+        );
         console.log("Incentive data sent");
       } catch (err) {
         console.log(err);
@@ -121,10 +141,13 @@ export default function Incentive_Tracker() {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e, header) => {
     const { name, value } = e.target;
     setVal({ ...val, [name]: value });
     setFormData({ ...formData, [name]: { ...formData[name], [name]: value } });
+    let newIncentiveData = incentiveData;
+    newIncentiveData[name][header] = value;
+    setIncentiveData(newIncentiveData);
   };
 
   const handleSelectChange = (e, bpcode) => {
@@ -155,11 +178,12 @@ export default function Incentive_Tracker() {
           )}
           <div>
             <div className="check">
-              {Object.keys(formData).map(
+              {/* {Object.keys(formData).map( */}
+              {incentiveData.map(
                 (rec, index) => (
                   // formData[rec].length < 2 ? (
                   <div key={index} className="rec">
-                    <h2>{formData[rec].bpName}</h2>
+                    <h2>{rec.bpName}</h2>
                     {/* <p>
                     <b>Phone:</b>
                     <a href={`tel:${formData[rec]["Mobile Phone"]}`}>
@@ -167,22 +191,22 @@ export default function Incentive_Tracker() {
                     </a>
                   </p> */}
                     <p>
-                      <b>Item Name:</b> {formData[rec].ItemName}
+                      <b>Item Name:</b> {rec.ItemName}
                     </p>
                     <p>
-                      <b>Item Group:</b> {formData[rec].ItemGroup}
+                      <b>Item Group:</b> {rec.ItemGroup}
                     </p>
                     <p>
-                      <b>Quantity:</b> {formData[rec].Quantity}
+                      <b>Quantity:</b> {rec.Quantity}
                     </p>
                     <p>
-                      <b>Item Total:</b> {formData[rec].ItemTotal}
+                      <b>Item Total:</b> {rec.ItemTotal}
                     </p>
                     <p>
                       <b>SNLC:</b>
                       <input
-                        name={formData[rec].ItemName}
-                        value={formData[formData[rec].ItemName]?.SNLC || ""}
+                        name={index}
+                        value={rec?.SNLC || ""}
                         onChange={handleChange}
                         placeholder="SNLC"
                       />
@@ -190,10 +214,8 @@ export default function Incentive_Tracker() {
                     <p>
                       <b>SELLING PRICES:</b>
                       <input
-                        name={formData[rec].ItemName}
-                        value={
-                          formData[formData[rec].ItemName]?.SELLING_PRICES || ""
-                        }
+                        name={index}
+                        value={rec?.sellingPrice || ""}
                         onChange={handleChange}
                         placeholder="SELLING PRICES"
                       />
@@ -201,10 +223,8 @@ export default function Incentive_Tracker() {
                     <p>
                       <b>SNLC/ONLINE/EW:</b>
                       <input
-                        name={formData[rec].ItemName}
-                        value={
-                          formData[formData[rec].ItemName]?.SNLC_ONLINE_EW || ""
-                        }
+                        name={index}
+                        value={rec?.typeSelling || ""}
                         onChange={handleChange}
                         placeholder="SNLC/ONLINE/EW"
                       />
@@ -212,10 +232,8 @@ export default function Incentive_Tracker() {
                     <p>
                       <b>INCENTIVE TYPE:</b>
                       <input
-                        name={formData[rec].ItemName}
-                        value={
-                          formData[formData[rec].ItemName]?.INCENTIVE_TYPE || ""
-                        }
+                        name={index}
+                        value={rec?.incentiveType || ""}
                         onChange={handleChange}
                         placeholder="INCENTIVE TYPE"
                       />
@@ -223,8 +241,8 @@ export default function Incentive_Tracker() {
                     <p>
                       <b>SRP QTY:</b>
                       <input
-                        name={formData[rec].ItemName}
-                        value={formData[formData[rec].ItemName]?.SRP_QTY || ""}
+                        name={index}
+                        value={rec?.SRPQty || ""}
                         onChange={handleChange}
                         placeholder="SRP QTY"
                       />
@@ -232,10 +250,8 @@ export default function Incentive_Tracker() {
                     <p>
                       <b>SRP TOTAL:</b>
                       <input
-                        name={formData[rec].ItemName}
-                        value={
-                          formData[formData[rec].ItemName]?.SRP_TOTAL || ""
-                        }
+                        name={index}
+                        value={rec?.incentiveTotal || ""}
                         onChange={handleChange}
                         placeholder="SRP TOTAL"
                       />
@@ -243,8 +259,8 @@ export default function Incentive_Tracker() {
                     <p>
                       <b>REMARK:</b>
                       <textarea
-                        name={formData[rec].ItemName}
-                        value={formData[formData[rec].ItemName]?.REMARK || ""}
+                        name={index}
+                        value={rec?.remark || ""}
                         onChange={handleChange}
                         placeholder="REMARK"
                       />
@@ -313,7 +329,7 @@ export default function Incentive_Tracker() {
                 //             <input
                 //               name={displaySet.ItemName}
                 //               value={
-                //                 formData[displaySet.ItemName]?.SNLC_ONLINE_EW ||
+                //                 formData[displaySet.ItemName]?.typeSelling ||
                 //                 ""
                 //               }
                 //               onChange={handleChange}

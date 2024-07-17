@@ -183,7 +183,7 @@ export default function Incentive_Tracker() {
                 (rec, index) => (
                   // formData[rec].length < 2 ? (
                   <div key={index} className="rec">
-                    <h2>{rec.bpName}</h2>
+                    <h2>{rec.CardName}</h2>
                     {/* <p>
                     <b>Phone:</b>
                     <a href={`tel:${formData[rec]["Mobile Phone"]}`}>

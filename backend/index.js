@@ -60,12 +60,15 @@ const allowedOrigins = [
 // app.use(cors({origin:"https://tvbfxxwf-5173.inc1.devtunnels.ms/",credentials:true}))
 
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
     host:process.env.HOST,
     user:process.env.USER,
     password:process.env.PASSWORD,
     database:process.env.DATABASE,
-    connectionLimit: 500
+    connectionLimit: 500,
+    waitForConnections: true,
+    queueLimit: 0
+
 })
 
 // Connect to the database
@@ -361,13 +364,13 @@ app.post('/logout',requireAuth, (req, res) => {
         secure: true
       });
       // Close the connection when done with it
-    db.end((err) => {
-        if (err) {
-          console.error('Error closing MySQL connection:', err);
-        } else {
-          console.log('MySQL connection closed');
-        }
-      });
+    // db.end((err) => {
+    //     if (err) {
+    //       console.error('Error closing MySQL connection:', err);
+    //     } else {
+    //       console.log('MySQL connection closed');
+    //     }
+    //   });
     // cookies.set("token",null,{httpOnly:true})
     // db.end((err)=>{
     //     if(err){

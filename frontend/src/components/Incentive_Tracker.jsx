@@ -24,7 +24,9 @@ export default function Incentive_Tracker() {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await axios.get(`${url}/session`);
+        const res = await axios.get(`${url}/session`, {
+          withCredentials: true,
+        });
         setUser(res.data.userId);
       } catch (err) {
         console.log(err);

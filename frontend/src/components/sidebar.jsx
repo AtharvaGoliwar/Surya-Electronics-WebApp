@@ -16,11 +16,11 @@ function Sidebar() {
       <aside className="sidebar">
         <nav>
           <img
-            src="/logo_no_bg.png"
+            src="logo_no_bg.png"
             alt="logo"
             width="100"
             height="50"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("")}
           ></img>
           <a className="active">Admin</a>
           <a onClick={() => navigate("/Employee_Profiles")} className="active">
@@ -35,10 +35,7 @@ function Sidebar() {
               <div className="dropdown-content">
                 <a onClick={() => navigate("/Add_Staff")}>Add Staff</a>
                 <a onClick={() => navigate("/Delete_Staff")}>Delete Staff</a>
-                <a
-                  onClick={() => navigate("/ChangePassword")}
-                  style={{ fontSize: "14px" }}
-                >
+                <a onClick={() => navigate("/Change_Password")}>
                   Change Password
                 </a>
               </div>
@@ -51,8 +48,22 @@ function Sidebar() {
             </a>
             {isDropdownVisible && (
               <div className="dropdown-content">
+                <a onClick={() => navigate("/admin")}>Upload File</a>
                 <a onClick={() => navigate("/Customer_Feedback")}>Send Data</a>
-                <a onClick={() => navigate("/See_Feedback")}>See Feedbacks</a>
+                <a onClick={() => navigate("/See_Feedback")}>See Feedback</a>
+              </div>
+            )}
+          </div>
+
+          <div className="dropdown">
+            <a className="active" onClick={toggleDropdown}>
+              Incentives
+            </a>
+            {isDropdownVisible && (
+              <div className="dropdown-content">
+                <a onClick={() => navigate("/admin")}>Upload File</a>
+                {/* <a onClick={() => navigate("/Customer_Feedback")}>Send Data</a> */}
+                <a onClick={() => navigate("/Track_Claims")}>Track Claims</a>
               </div>
             )}
           </div>

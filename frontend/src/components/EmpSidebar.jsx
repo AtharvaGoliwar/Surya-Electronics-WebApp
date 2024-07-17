@@ -16,15 +16,21 @@ function EmpSidebar({ empName }) {
       <aside className="emp-sidebar">
         <nav>
           <img
-            src="/logo_no_bg.png"
+            src="logo_no_bg.png"
             alt="logo"
             width="70"
             height="35"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("")}
             style={{ marginLeft: "10px" }}
           ></img>
           <a className="active">Employee</a>
           <a className="active">{empName}</a>
+          <a onClick={() => navigate("/emp")} className="active">
+            Take Feedback
+          </a>
+          <a onClick={() => navigate("/Incentive_Tracker")} className="active">
+            Incentive
+          </a>
           <a onClick={() => navigate("/Logout")} className="active">
             Logout
           </a>

@@ -111,7 +111,7 @@ export default function Incentive_Tracker() {
       });
       try {
         // await axios.post("http://localhost:8800/setIncentive", formData, {
-        await axios.post(`${url}/setIncentive`, sendData, {
+        await axios.post(`${url}/sendIncentive`, sendData, {
           withCredentials: true,
         });
         console.log("Incentive data sent");

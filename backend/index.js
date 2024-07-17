@@ -887,9 +887,12 @@ app.post("/uploadIncentive",(req,res)=>{
 app.post("/sendIncentive",requireAuth, async (req,res)=>{
     const userId = req.body.empid;
     const data = req.body.data;
+    const token = req.signedCookies?.cookie
+    const branch = getUser(token).branch
+    const table = `incentive_${branch}`;
 
     const updatePromises = data.map((rec)=>{
-        const updateQuery = `UPDATE incentive SET SNLC=?, sellingPrice=?, typeSelling=?, incentiveType=?, SRPQty=?, incentiveTotal=?, remark=? WHERE salesEmp=? and ItemName=?`
+        const updateQuery = `UPDATE ${table} SET SNLC=?, sellingPrice=?, typeSelling=?, incentiveType=?, SRPQty=?, incentiveTotal=?, remark=? WHERE salesEmp=? and ItemName=?`
         return new Promise((resolve,reject)=>{
             db.query(updateQuery,[rec.SNLC, rec.sellingPrice, rec.typeSelling, rec.incentiveType, rec.SRPQty, rec.incentiveTotal, rec.remark, rec.salesEmp,rec.ItemName],(err,data)=>{
                 if (err) {
@@ -909,7 +912,10 @@ app.post("/sendIncentive",requireAuth, async (req,res)=>{
 })
 
 app.get("/incentiveAllData",(req,res)=>{
-    const query = "SELECT * FROM incentive"
+    const token = req.signedCookies?.cookie
+    const branch = getUser(token).branch
+    const table = `incentive_${branch}`;
+    const query =`SELECT * FROM ${table}`
     db.query(query,(err,data)=>{
         if(err) return res.json({error: err})
             return res.json(data)

@@ -207,7 +207,7 @@ export default function Incentive_Tracker() {
                       <input
                         name={index}
                         value={rec?.SNLC || ""}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, "SNLC")}
                         placeholder="SNLC"
                       />
                     </p>
@@ -216,7 +216,7 @@ export default function Incentive_Tracker() {
                       <input
                         name={index}
                         value={rec?.sellingPrice || ""}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, "sellingPrice")}
                         placeholder="SELLING PRICES"
                       />
                     </p>
@@ -225,7 +225,7 @@ export default function Incentive_Tracker() {
                       <input
                         name={index}
                         value={rec?.typeSelling || ""}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, "typeSelling")}
                         placeholder="SNLC/ONLINE/EW"
                       />
                     </p>
@@ -234,7 +234,7 @@ export default function Incentive_Tracker() {
                       <input
                         name={index}
                         value={rec?.incentiveType || ""}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, "incentiveType")}
                         placeholder="INCENTIVE TYPE"
                       />
                     </p>
@@ -243,7 +243,7 @@ export default function Incentive_Tracker() {
                       <input
                         name={index}
                         value={rec?.SRPQty || ""}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, "SRPQty")}
                         placeholder="SRP QTY"
                       />
                     </p>
@@ -252,7 +252,7 @@ export default function Incentive_Tracker() {
                       <input
                         name={index}
                         value={rec?.incentiveTotal || ""}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, "incentiveTotal")}
                         placeholder="SRP TOTAL"
                       />
                     </p>
@@ -261,7 +261,7 @@ export default function Incentive_Tracker() {
                       <textarea
                         name={index}
                         value={rec?.remark || ""}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, "remark")}
                         placeholder="REMARK"
                       />
                     </p>

@@ -153,205 +153,214 @@ export default function Incentive_Tracker() {
           {incentiveData.length === 0 && (
             <div style={style}>No Records to be Shown</div>
           )}
-          <div className="check">
-            {Object.keys(formData).map((rec, index) =>
-              formData[rec].length < 2 ? (
-                <div key={index} className="rec">
-                  <h2>{formData[rec].bpName}</h2>
-                  {/* <p>
+          <div>
+            <div className="check">
+              {Object.keys(formData).map(
+                (rec, index) => (
+                  // formData[rec].length < 2 ? (
+                  <div key={index} className="rec">
+                    <h2>{formData[rec].bpName}</h2>
+                    {/* <p>
                     <b>Phone:</b>
                     <a href={`tel:${formData[rec]["Mobile Phone"]}`}>
                       {custItems[rec][0]["Mobile Phone"]}
                     </a>
                   </p> */}
-                  <p>
-                    <b>Item Name:</b> {formData[rec].ItemName}
-                  </p>
-                  <p>
-                    <b>Item Group:</b> {formData[rec].ItemGroup}
-                  </p>
-                  <p>
-                    <b>Quantity:</b> {formData[rec].Quantity}
-                  </p>
-                  <p>
-                    <b>Item Total:</b> {formData[rec].ItemTotal}
-                  </p>
-                  <p>
-                    <b>SNLC:</b>
-                    <input
-                      name={formData[rec].ItemName}
-                      value={formData[formData[rec].ItemName]?.SNLC || ""}
-                      onChange={handleChange}
-                      placeholder="SNLC"
-                    />
-                  </p>
-                  <p>
-                    <b>SELLING PRICES:</b>
-                    <input
-                      name={formData[rec].ItemName}
-                      value={
-                        formData[formData[rec].ItemName]?.SELLING_PRICES || ""
-                      }
-                      onChange={handleChange}
-                      placeholder="SELLING PRICES"
-                    />
-                  </p>
-                  <p>
-                    <b>SNLC/ONLINE/EW:</b>
-                    <input
-                      name={formData[rec].ItemName}
-                      value={
-                        formData[formData[rec].ItemName]?.SNLC_ONLINE_EW || ""
-                      }
-                      onChange={handleChange}
-                      placeholder="SNLC/ONLINE/EW"
-                    />
-                  </p>
-                  <p>
-                    <b>INCENTIVE TYPE:</b>
-                    <input
-                      name={formData[rec].ItemName}
-                      value={
-                        formData[formData[rec].ItemName]?.INCENTIVE_TYPE || ""
-                      }
-                      onChange={handleChange}
-                      placeholder="INCENTIVE TYPE"
-                    />
-                  </p>
-                  <p>
-                    <b>SRP QTY:</b>
-                    <input
-                      name={formData[rec].ItemName}
-                      value={formData[formData[rec].ItemName]?.SRP_QTY || ""}
-                      onChange={handleChange}
-                      placeholder="SRP QTY"
-                    />
-                  </p>
-                  <p>
-                    <b>SRP TOTAL:</b>
-                    <input
-                      name={formData[rec].ItemName}
-                      value={formData[formData[rec].ItemName]?.SRP_TOTAL || ""}
-                      onChange={handleChange}
-                      placeholder="SRP TOTAL"
-                    />
-                  </p>
-                  <p>
-                    <b>REMARK:</b>
-                    <textarea
-                      name={formData[rec].ItemName}
-                      value={formData[formData[rec].ItemName]?.REMARK || ""}
-                      onChange={handleChange}
-                      placeholder="REMARK"
-                    />
-                  </p>
-                </div>
-              ) : (
-                <div key={index} className="rec">
-                  <h2>{formData[rec].bpName}</h2>
-                  {/* <p>
-                    <b>Phone:</b>
-                    <a href={`tel:${formData[rec]["Mobile Phone"]}`}>
-                      {formData[rec]["Mobile Phone"]}
-                    </a>
-                  </p> */}
-                  <div>
-                    <b>Item Name:</b>
-                    <select
-                      name=""
-                      onChange={(e) => handleSelectChange(e, rec)}
-                    >
-                      <option value="" disabled selected>
-                        Select Item Name
-                      </option>
-                      {custItems[rec].map((item) => (
-                        <option value={item.ItemName}>{item.ItemName}</option>
-                      ))}
-                    </select>
-                    {displaySet && (
-                      <>
-                        <p>
-                          <b>Item Group:</b> {displaySet.ItemGroup}
-                        </p>
-                        <p>
-                          <b>Quantity:</b> {displaySet.Quantity}
-                        </p>
-                        <p>
-                          <b>Item Total:</b> {displaySet.ItemTotal}
-                        </p>
-                        <p>
-                          <b>SNLC:</b>
-                          <input
-                            name={displaySet.ItemName}
-                            value={formData[displaySet.ItemName]?.SNLC || ""}
-                            onChange={handleChange}
-                            placeholder="SNLC"
-                          />
-                        </p>
-                        <p>
-                          <b>SELLING PRICES:</b>
-                          <input
-                            name={displaySet.ItemName}
-                            value={
-                              formData[displaySet.ItemName]?.SELLING_PRICES ||
-                              ""
-                            }
-                            onChange={handleChange}
-                            placeholder="SELLING PRICES"
-                          />
-                        </p>
-                        <p>
-                          <b>SNLC/ONLINE/EW:</b>
-                          <input
-                            name={displaySet.ItemName}
-                            value={
-                              formData[displaySet.ItemName]?.SNLC_ONLINE_EW ||
-                              ""
-                            }
-                            onChange={handleChange}
-                            placeholder="SNLC/ONLINE/EW"
-                          />
-                        </p>
-                        <p>
-                          <b>INCENTIVE TYPE:</b>
-                          <input
-                            name={displaySet.ItemName}
-                            value={
-                              formData[displaySet.ItemName]?.INCENTIVE_TYPE ||
-                              ""
-                            }
-                            onChange={handleChange}
-                            placeholder="INCENTIVE TYPE"
-                          />
-                        </p>
-                        <p>
-                          <b>SRP QTY:</b>
-                          <input
-                            name={displaySet.ItemName}
-                            value={formData[displaySet.ItemName]?.SRP_QTY || ""}
-                            onChange={handleChange}
-                            placeholder="SRP QTY"
-                          />
-                        </p>
-                        <p>
-                          <b>REMARK:</b>
-                          <textarea
-                            name={displaySet.ItemName}
-                            value={formData[displaySet.ItemName]?.REMARK || ""}
-                            onChange={handleChange}
-                            placeholder="REMARK"
-                          />
-                        </p>
-                      </>
-                    )}
+                    <p>
+                      <b>Item Name:</b> {formData[rec].ItemName}
+                    </p>
+                    <p>
+                      <b>Item Group:</b> {formData[rec].ItemGroup}
+                    </p>
+                    <p>
+                      <b>Quantity:</b> {formData[rec].Quantity}
+                    </p>
+                    <p>
+                      <b>Item Total:</b> {formData[rec].ItemTotal}
+                    </p>
+                    <p>
+                      <b>SNLC:</b>
+                      <input
+                        name={formData[rec].ItemName}
+                        value={formData[formData[rec].ItemName]?.SNLC || ""}
+                        onChange={handleChange}
+                        placeholder="SNLC"
+                      />
+                    </p>
+                    <p>
+                      <b>SELLING PRICES:</b>
+                      <input
+                        name={formData[rec].ItemName}
+                        value={
+                          formData[formData[rec].ItemName]?.SELLING_PRICES || ""
+                        }
+                        onChange={handleChange}
+                        placeholder="SELLING PRICES"
+                      />
+                    </p>
+                    <p>
+                      <b>SNLC/ONLINE/EW:</b>
+                      <input
+                        name={formData[rec].ItemName}
+                        value={
+                          formData[formData[rec].ItemName]?.SNLC_ONLINE_EW || ""
+                        }
+                        onChange={handleChange}
+                        placeholder="SNLC/ONLINE/EW"
+                      />
+                    </p>
+                    <p>
+                      <b>INCENTIVE TYPE:</b>
+                      <input
+                        name={formData[rec].ItemName}
+                        value={
+                          formData[formData[rec].ItemName]?.INCENTIVE_TYPE || ""
+                        }
+                        onChange={handleChange}
+                        placeholder="INCENTIVE TYPE"
+                      />
+                    </p>
+                    <p>
+                      <b>SRP QTY:</b>
+                      <input
+                        name={formData[rec].ItemName}
+                        value={formData[formData[rec].ItemName]?.SRP_QTY || ""}
+                        onChange={handleChange}
+                        placeholder="SRP QTY"
+                      />
+                    </p>
+                    <p>
+                      <b>SRP TOTAL:</b>
+                      <input
+                        name={formData[rec].ItemName}
+                        value={
+                          formData[formData[rec].ItemName]?.SRP_TOTAL || ""
+                        }
+                        onChange={handleChange}
+                        placeholder="SRP TOTAL"
+                      />
+                    </p>
+                    <p>
+                      <b>REMARK:</b>
+                      <textarea
+                        name={formData[rec].ItemName}
+                        value={formData[formData[rec].ItemName]?.REMARK || ""}
+                        onChange={handleChange}
+                        placeholder="REMARK"
+                      />
+                    </p>
                   </div>
-                </div>
-              )
-            )}
+                )
+
+                //  : (
+                //   "Hello"
+                // )
+                //   <div key={index} className="rec">
+                //     <h2>{formData[rec].bpName}</h2>
+                //     {/* <p>
+                //       <b>Phone:</b>
+                //       <a href={`tel:${formData[rec]["Mobile Phone"]}`}>
+                //         {formData[rec]["Mobile Phone"]}
+                //       </a>
+                //     </p> */}
+                //     <div>
+                //       <b>Item Name:</b>
+                //       <select
+                //         name=""
+                //         onChange={(e) => handleSelectChange(e, rec)}
+                //       >
+                //         <option value="" disabled selected>
+                //           Select Item Name
+                //         </option>
+                //         {custItems[rec].map((item) => (
+                //           <option value={item.ItemName}>{item.ItemName}</option>
+                //         ))}
+                //       </select>
+                //       {displaySet && (
+                //         <>
+                //           <p>
+                //             <b>Item Group:</b> {displaySet.ItemGroup}
+                //           </p>
+                //           <p>
+                //             <b>Quantity:</b> {displaySet.Quantity}
+                //           </p>
+                //           <p>
+                //             <b>Item Total:</b> {displaySet.ItemTotal}
+                //           </p>
+                //           <p>
+                //             <b>SNLC:</b>
+                //             <input
+                //               name={displaySet.ItemName}
+                //               value={formData[displaySet.ItemName]?.SNLC || ""}
+                //               onChange={handleChange}
+                //               placeholder="SNLC"
+                //             />
+                //           </p>
+                //           <p>
+                //             <b>SELLING PRICES:</b>
+                //             <input
+                //               name={displaySet.ItemName}
+                //               value={
+                //                 formData[displaySet.ItemName]?.SELLING_PRICES ||
+                //                 ""
+                //               }
+                //               onChange={handleChange}
+                //               placeholder="SELLING PRICES"
+                //             />
+                //           </p>
+                //           <p>
+                //             <b>SNLC/ONLINE/EW:</b>
+                //             <input
+                //               name={displaySet.ItemName}
+                //               value={
+                //                 formData[displaySet.ItemName]?.SNLC_ONLINE_EW ||
+                //                 ""
+                //               }
+                //               onChange={handleChange}
+                //               placeholder="SNLC/ONLINE/EW"
+                //             />
+                //           </p>
+                //           <p>
+                //             <b>INCENTIVE TYPE:</b>
+                //             <input
+                //               name={displaySet.ItemName}
+                //               value={
+                //                 formData[displaySet.ItemName]?.INCENTIVE_TYPE ||
+                //                 ""
+                //               }
+                //               onChange={handleChange}
+                //               placeholder="INCENTIVE TYPE"
+                //             />
+                //           </p>
+                //           <p>
+                //             <b>SRP QTY:</b>
+                //             <input
+                //               name={displaySet.ItemName}
+                //               value={formData[displaySet.ItemName]?.SRP_QTY || ""}
+                //               onChange={handleChange}
+                //               placeholder="SRP QTY"
+                //             />
+                //           </p>
+                //           <p>
+                //             <b>REMARK:</b>
+                //             <textarea
+                //               name={displaySet.ItemName}
+                //               value={formData[displaySet.ItemName]?.REMARK || ""}
+                //               onChange={handleChange}
+                //               placeholder="REMARK"
+                //             />
+                //           </p>
+                //         </>
+                //       )}
+                //     </div>
+                //   </div>
+                // )
+              )}
+            </div>
+            <button onClick={() => Send()} className="button">
+              Send
+            </button>
           </div>
-          <button onClick={() => Send()} className="button">
-            Send
-          </button>
         </div>
       </div>
     </>

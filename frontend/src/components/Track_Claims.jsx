@@ -120,7 +120,7 @@ function Track_Claims() {
       // let res = await axios.get("http://localhost:8800/alldata", {
       //   withCredentials: true,
       // });
-      jsonData = res.data;
+      // jsonData = res.data;
       console.log(jsonData);
       const workbook = new ExcelJS.Workbook();
       const worksheet = workbook.addWorksheet("Sheet1");

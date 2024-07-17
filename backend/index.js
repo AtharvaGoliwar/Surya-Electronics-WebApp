@@ -852,18 +852,20 @@ app.post("/upload",requireAuth,requireSuperAdmin,(req,res)=>{
 
 app.post("/uploadIncentive",(req,res)=>{
     const {headers, rows} = req.body
-    const table = "incentive";
+    const token = req.signedCookies?.cookie
+    const branch = getUser(token).branch
+    const table = `incentive_${branch}`;
     const columns = headers.map(header=> `\`${header}\` varchar(255)`).join(',')
     const query1 = `DROP TABLE IF EXISTS ${table}`
     db.query(query1,(err,data)=>{
         if(err) return res.json({error:err, message:"table did not drop"})
     })
     
-    const createTableQuery = `CREATE TABLE IF NOT EXISTS ${table} (${columns},SNLC varchar(255) not null default "", sellingPrice varchar(255) not null default "",typeSelling varchar(255) not null default "",incentiveType varchar(255) not null default "",SRPQty varchar(255) not null default "",incentiveTotal varchar(255) not null default "",remark varchar(255) not null default "")`;
+    const createTableQuery = `CREATE TABLE IF NOT EXISTS \`${table}\` (${columns},SNLC varchar(255) not null default "", sellingPrice varchar(255) not null default "",typeSelling varchar(255) not null default "",incentiveType varchar(255) not null default "",SRPQty varchar(255) not null default "",incentiveTotal varchar(255) not null default "",remark varchar(255) not null default "")`;
     db.query(createTableQuery, (err, result) => {
         if (err) {
         console.error('Error creating table:', err);
-        res.status(500).send('Error creating table');
+        res.status(500).json({message:'Error creating table',err:err});
         return;
         }
 

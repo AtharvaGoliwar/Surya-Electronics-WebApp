@@ -64,9 +64,10 @@ export default function Incentive_Tracker() {
               docDate: rec.docDate,
               ItemCode: rec.ItemCode,
               ItemName: rec.ItemName,
-              ItemGroup: rec.ItemGroup,
+              ItemGroup: rec["Item group"],
               Quantity: rec.Quantity,
               ItemTotal: rec.ItemTotal,
+              salesEmp: rec.salesEmp,
             };
             temp[rec.bpcode] = [];
           });

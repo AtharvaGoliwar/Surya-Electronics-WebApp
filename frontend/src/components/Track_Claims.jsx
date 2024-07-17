@@ -11,34 +11,61 @@ function Track_Claims() {
   const [employeesData, setEmployeesData] = useState([]);
   const [records, setRecords] = useState({});
 
+  const [incentiveRecords, setIncentiveRecords] = useState([]);
+  const [emp, setEmp] = useState([]);
+  const [displayRec, setDisplayRec] = useState([]);
+  const url = import.meta.env.VITE_BACKEND_URL;
+
+  // useEffect(() => {
+  //   const fetchRecords = async () => {
+  //     try {
+  //       const res = await axios.get("http://localhost:8800/users", {
+  //         withCredentials: true,
+  //       });
+  //       const newRecords = {};
+
+  //       for (let i = 0; i < res?.data.length; i++) {
+  //         if (res.data[i]["role"] !== "admin") {
+  //           const employee = res.data[i]["userId"];
+  //           const params = { empid: res.data[i]["userId"] };
+  //           const res1 = await axios.get("http://localhost:8800/emp", {
+  //             params,
+  //             withCredentials: true,
+  //           });
+  //           newRecords[employee] = res1.data;
+  //         }
+  //       }
+
+  //       setRecords(newRecords);
+  //       console.log(newRecords);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+
+  //   fetchRecords();
+  // }, []);
+
   useEffect(() => {
-    const fetchRecords = async () => {
+    const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:8800/users", {
+        let res = await axios.get(`${url}/incentiveAllData`, {
           withCredentials: true,
         });
-        const newRecords = {};
-
-        for (let i = 0; i < res?.data.length; i++) {
-          if (res.data[i]["role"] !== "admin") {
-            const employee = res.data[i]["userId"];
-            const params = { empid: res.data[i]["userId"] };
-            const res1 = await axios.get("http://localhost:8800/emp", {
-              params,
-              withCredentials: true,
-            });
-            newRecords[employee] = res1.data;
+        let users = [];
+        console.log(res.data);
+        res.data.map((rec) => {
+          if (!users.includes(rec.salesEmp)) {
+            users.push(rec.salesEmp);
           }
-        }
-
-        setRecords(newRecords);
-        console.log(newRecords);
+        });
+        setEmp(users);
+        setIncentiveRecords(res.data);
       } catch (err) {
         console.log(err);
       }
     };
-
-    fetchRecords();
+    fetchData();
   }, []);
 
   const handleEmployeeNameChange = (e) => {
@@ -51,7 +78,7 @@ function Track_Claims() {
 
   const addEmployee = (e) => {
     e.preventDefault();
-    if (!employeeNameInput || !branchInput) {
+    if (!employeeNameInput) {
       alert("Please enter both employee name and branch before adding.");
       return;
     }
@@ -59,6 +86,14 @@ function Track_Claims() {
       ...employeesData,
       { name: employeeNameInput, branch: branchInput },
     ]);
+    let temp = [];
+    incentiveRecords.map((rec) => {
+      if (rec.salesEmp === employeeNameInput) {
+        temp.push(rec);
+      }
+    });
+    setDisplayRec(temp);
+
     setEmployeeNameInput("");
     setBranchInput("");
   };
@@ -68,23 +103,23 @@ function Track_Claims() {
     setEmployeesData(updatedEmployees);
   };
 
-  const handleUpdate = async () => {
-    try {
-      await axios.post("http://localhost:8800/finalreview", records, {
-        withCredentials: true,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-    console.log("Update button clicked");
-  };
+  // const handleUpdate = async () => {
+  //   try {
+  //     await axios.post("http://localhost:8800/finalreview", records, {
+  //       withCredentials: true,
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  //   console.log("Update button clicked");
+  // };
 
   const handleFileDownload = async () => {
-    let jsonData = [];
+    let jsonData = incentiveRecords;
     try {
-      let res = await axios.get("http://localhost:8800/alldata", {
-        withCredentials: true,
-      });
+      // let res = await axios.get("http://localhost:8800/alldata", {
+      //   withCredentials: true,
+      // });
       jsonData = res.data;
       console.log(jsonData);
       const workbook = new ExcelJS.Workbook();
@@ -114,6 +149,8 @@ function Track_Claims() {
 
   return (
     <>
+      {console.log(emp)}
+      {console.log(displayRec)}
       <div style={{ display: "flex", marginLeft: 200 }}>
         <Sidebar />
         <div className="user-management-container">
@@ -124,7 +161,7 @@ function Track_Claims() {
                 Track Claims
               </h3>
               <form id="add-employee-form">
-                <input
+                {/* <input
                   type="text"
                   placeholder="Enter Employee Name"
                   value={employeeNameInput}
@@ -139,9 +176,27 @@ function Track_Claims() {
                     padding: "10px",
                     fontSize: "16px",
                   }}
-                />
+                /> */}
 
                 <select
+                  onChange={handleEmployeeNameChange}
+                  style={{
+                    height: 40,
+                    borderRadius: "4px",
+                    backgroundColor: "#333",
+                    color: "#fff",
+                    border: "1px solid #000",
+                  }}
+                >
+                  <option disabled selected>
+                    Select Employee
+                  </option>
+                  {emp.map((rec) => (
+                    <option value={rec}>{rec}</option>
+                  ))}
+                </select>
+
+                {/* <select
                   onChange={handleBranchChange}
                   style={{
                     height: 40,
@@ -165,15 +220,15 @@ function Track_Claims() {
                   <option>Manikbaug (MNKBG)</option>
                   <option>Shirur (SRR)</option>
                   <option>Rajgurunagar (RGNGR)</option>
-                </select>
+                </select> */}
 
                 <button className="btn" onClick={addEmployee}>
                   Add Employee
                 </button>
                 <div className="button-group">
-                  <button className="update-btn" onClick={handleUpdate}>
+                  {/* <button className="update-btn" onClick={handleUpdate}>
                     Update
-                  </button>
+                  </button> */}
                   <button className="download-btn" onClick={handleFileDownload}>
                     Download
                   </button>
@@ -183,35 +238,34 @@ function Track_Claims() {
                 {employeesData.map((employeeEntry, index) => (
                   <div key={index} className="employee-entry">
                     <div className="employee-header">
-                      <h4>
-                        Employee: {employeeEntry.name}, Branch:{" "}
-                        {employeeEntry.branch}
-                      </h4>
+                      <h4>Employee: {employeeEntry.name}</h4>
                       <button onClick={() => deleteEmployee(index)}>
                         Delete
                       </button>
                     </div>
-                    {records[employeeEntry.name] &&
-                    records[employeeEntry.name].length > 0 ? (
-                      records[employeeEntry.name].map((item, i) => (
+                    {emp && displayRec.length > 0 ? (
+                      displayRec.map((item, i) => (
                         <div key={i} className="result-item">
                           <p>
                             <b>SNLC:</b> {item.SNLC}
                           </p>
                           <p>
-                            <b>SELLING PRICES:</b> {item["SELLING PRICES"]}
+                            <b>SELLING PRICES:</b> {item["sellingPrice"]}
                           </p>
                           <p>
-                            <b>SNLC/ONLINE/EW:</b> {item["SNLC/ONLINE/EW"]}
+                            <b>SNLC/ONLINE/EW:</b> {item["typeSelling"]}
                           </p>
                           <p>
-                            <b>INSENTIVE TYPE:</b> {item["INSENTIVE TYPE"]}
+                            <b>INSENTIVE TYPE:</b> {item["incentiveType"]}
                           </p>
                           <p>
-                            <b>SRP QTY:</b> {item["SRP QTY"]}
+                            <b>SRP QTY:</b> {item["SRPQty"]}
                           </p>
                           <p>
-                            <b>REMARK:</b> {item.REMARK}
+                            <b>Incentive Total:</b> {item["incentiveTotal"]}
+                          </p>
+                          <p>
+                            <b>REMARK:</b> {item.remark}
                           </p>
                         </div>
                       ))

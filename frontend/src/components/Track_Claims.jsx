@@ -141,7 +141,7 @@ function Track_Claims() {
       const blob = new Blob([buffer], {
         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       });
-      saveAs(blob, "data.xlsx");
+      saveAs(blob, "data_incentive.xlsx");
     } catch (err) {
       console.log(err);
     }

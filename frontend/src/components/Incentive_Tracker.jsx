@@ -168,19 +168,19 @@ export default function Incentive_Tracker() {
                     <b>Item Name:</b> {formData[rec].ItemName}
                   </p>
                   <p>
-                    <b>Item Group:</b> {custItems[rec][0].ItemGroup}
+                    <b>Item Group:</b> {formData[rec].ItemGroup}
                   </p>
                   <p>
-                    <b>Quantity:</b> {custItems[rec][0].Quantity}
+                    <b>Quantity:</b> {formData[rec].Quantity}
                   </p>
                   <p>
-                    <b>Item Total:</b> {custItems[rec][0].ItemTotal}
+                    <b>Item Total:</b> {formData[rec].ItemTotal}
                   </p>
                   <p>
                     <b>SNLC:</b>
                     <input
-                      name={custItems[rec][0].ItemName}
-                      value={formData[custItems[rec][0].ItemName]?.SNLC || ""}
+                      name={formData[rec].ItemName}
+                      value={formData[formData[rec].ItemName]?.SNLC || ""}
                       onChange={handleChange}
                       placeholder="SNLC"
                     />
@@ -188,10 +188,9 @@ export default function Incentive_Tracker() {
                   <p>
                     <b>SELLING PRICES:</b>
                     <input
-                      name={custItems[rec][0].ItemName}
+                      name={formData[rec].ItemName}
                       value={
-                        formData[custItems[rec][0].ItemName]?.SELLING_PRICES ||
-                        ""
+                        formData[formData[rec].ItemName]?.SELLING_PRICES || ""
                       }
                       onChange={handleChange}
                       placeholder="SELLING PRICES"
@@ -200,10 +199,9 @@ export default function Incentive_Tracker() {
                   <p>
                     <b>SNLC/ONLINE/EW:</b>
                     <input
-                      name={custItems[rec][0].ItemName}
+                      name={formData[rec].ItemName}
                       value={
-                        formData[custItems[rec][0].ItemName]?.SNLC_ONLINE_EW ||
-                        ""
+                        formData[formData[rec].ItemName]?.SNLC_ONLINE_EW || ""
                       }
                       onChange={handleChange}
                       placeholder="SNLC/ONLINE/EW"
@@ -212,10 +210,9 @@ export default function Incentive_Tracker() {
                   <p>
                     <b>INCENTIVE TYPE:</b>
                     <input
-                      name={custItems[rec][0].ItemName}
+                      name={formData[rec].ItemName}
                       value={
-                        formData[custItems[rec][0].ItemName]?.INCENTIVE_TYPE ||
-                        ""
+                        formData[formData[rec].ItemName]?.INCENTIVE_TYPE || ""
                       }
                       onChange={handleChange}
                       placeholder="INCENTIVE TYPE"
@@ -224,10 +221,8 @@ export default function Incentive_Tracker() {
                   <p>
                     <b>SRP QTY:</b>
                     <input
-                      name={custItems[rec][0].ItemName}
-                      value={
-                        formData[custItems[rec][0].ItemName]?.SRP_QTY || ""
-                      }
+                      name={formData[rec].ItemName}
+                      value={formData[formData[rec].ItemName]?.SRP_QTY || ""}
                       onChange={handleChange}
                       placeholder="SRP QTY"
                     />
@@ -235,10 +230,8 @@ export default function Incentive_Tracker() {
                   <p>
                     <b>SRP TOTAL:</b>
                     <input
-                      name={custItems[rec][0].ItemName}
-                      value={
-                        formData[custItems[rec][0].ItemName]?.SRP_TOTAL || ""
-                      }
+                      name={formData[rec].ItemName}
+                      value={formData[formData[rec].ItemName]?.SRP_TOTAL || ""}
                       onChange={handleChange}
                       placeholder="SRP TOTAL"
                     />
@@ -246,8 +239,8 @@ export default function Incentive_Tracker() {
                   <p>
                     <b>REMARK:</b>
                     <textarea
-                      name={custItems[rec][0].ItemName}
-                      value={formData[custItems[rec][0].ItemName]?.REMARK || ""}
+                      name={formData[rec].ItemName}
+                      value={formData[formData[rec].ItemName]?.REMARK || ""}
                       onChange={handleChange}
                       placeholder="REMARK"
                     />
@@ -255,13 +248,13 @@ export default function Incentive_Tracker() {
                 </div>
               ) : (
                 <div key={index} className="rec">
-                  <h2>{custItems[rec][0].bpName}</h2>
-                  <p>
+                  <h2>{formData[rec].bpName}</h2>
+                  {/* <p>
                     <b>Phone:</b>
-                    <a href={`tel:${custItems[rec][0]["Mobile Phone"]}`}>
-                      {custItems[rec][0]["Mobile Phone"]}
+                    <a href={`tel:${formData[rec]["Mobile Phone"]}`}>
+                      {formData[rec]["Mobile Phone"]}
                     </a>
-                  </p>
+                  </p> */}
                   <div>
                     <b>Item Name:</b>
                     <select

@@ -65,7 +65,7 @@ const db = mysql.createPool({
     user:process.env.USER,
     password:process.env.PASSWORD,
     database:process.env.DATABASE,
-    connectionLimit: 50
+    connectionLimit: 10000
 })
 
 // Connect to the database

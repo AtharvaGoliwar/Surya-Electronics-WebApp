@@ -60,7 +60,7 @@ const allowedOrigins = [
 // app.use(cors({origin:"https://tvbfxxwf-5173.inc1.devtunnels.ms/",credentials:true}))
 
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
     host:process.env.HOST,
     user:process.env.USER,
     password:process.env.PASSWORD,
@@ -69,12 +69,24 @@ const db = mysql.createConnection({
 })
 
 // Connect to the database
-db.connect((err) => {
+// db.connect((err) => {
+//     if (err) {
+//       throw err;
+//     }
+//     console.log('Connected to database');
+//   });
+
+db.getConnection((err, connection) => {
     if (err) {
-      throw err;
+      console.error('Error connecting to database:', err);
+      return;
     }
-    console.log('Connected to database');
-  });
+  
+    console.log('Connected to database successfully.');
+    connection.release()
+})
+  
+  
 
 app.post("/myroute",(req,res)=>{
     // res.json("hello world")

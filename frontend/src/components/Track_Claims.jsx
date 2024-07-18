@@ -8,7 +8,7 @@ import { saveAs } from "file-saver";
 function Track_Claims() {
   const [employeeNameInput, setEmployeeNameInput] = useState("");
   const [branchInput, setBranchInput] = useState("");
-  const [employeesData, setEmployeesData] = useState([]);
+  const [employeesData, setEmployeesData] = useState("");
   const [records, setRecords] = useState({});
 
   const [incentiveRecords, setIncentiveRecords] = useState([]);
@@ -82,10 +82,11 @@ function Track_Claims() {
       alert("Please enter both employee name and branch before adding.");
       return;
     }
-    setEmployeesData([
-      ...employeesData,
-      { name: employeeNameInput, branch: branchInput },
-    ]);
+    // setEmployeesData([
+    //   ...employeesData,
+    //   { name: employeeNameInput, branch: branchInput },
+    // ]);
+    setEmployeesData(employeeNameInput);
     let temp = [];
     incentiveRecords.map((rec) => {
       if (rec.salesEmp === employeeNameInput) {
@@ -261,14 +262,15 @@ function Track_Claims() {
                   </button>
                 </div>
               </form>
-              <div className="results">
-                {employeesData.map((employeeEntry, index) => (
-                  <div key={index} className="employee-entry">
+              {employeesData !== "" ? (
+                <div className="results">
+                  {/* {employeesData.map((employeeEntry, index) => ( */}
+                  <div className="employee-entry">
                     <div className="employee-header">
-                      <h4>Employee: {employeeEntry.name}</h4>
-                      <button onClick={() => deleteEmployee(index)}>
+                      <h4>Employee: {employeesData}</h4>
+                      {/* <button onClick={() => deleteEmployee(index)}>
                         Delete
-                      </button>
+                      </button> */}
                     </div>
                     {emp && displayRec.length > 0 ? (
                       displayRec.map((item, i) => (
@@ -302,8 +304,11 @@ function Track_Claims() {
                       </p>
                     )}
                   </div>
-                ))}
-              </div>
+                  {/* ))} */}
+                </div>
+              ) : (
+                ""
+              )}
             </section>
           </main>
         </div>

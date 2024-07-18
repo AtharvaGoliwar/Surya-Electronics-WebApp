@@ -48,7 +48,7 @@ function Sidebar() {
             </a>
             {isDropdownVisible && (
               <div className="dropdown-content">
-                <a onClick={() => navigate("/admin")}>Upload File</a>
+                {/* <a onClick={() => navigate("/admin")}>Upload File</a> */}
                 <a onClick={() => navigate("/Customer_Feedback")}>Send Data</a>
                 <a onClick={() => navigate("/See_Feedback")}>See Feedback</a>
               </div>

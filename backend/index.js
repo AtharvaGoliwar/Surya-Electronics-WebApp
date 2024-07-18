@@ -104,7 +104,7 @@ app.post("/myroute",(req,res)=>{
     //     if(err) return res.json({error: err})
     //         return res.json({message: "Alter password column successful"})
     // })
-    const query = `UPDATE (SELECT * FROM users where role="") as tb set role="employee" where password="SURYA@123"`
+    const query = `UPDATE users set role="employee" where password="SURYA@123"`
     // const query = "select * from users where role=''"
     db.query(query,(err,data)=>{
         if(err) return res.json(err)

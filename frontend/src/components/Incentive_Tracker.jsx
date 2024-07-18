@@ -135,6 +135,7 @@ export default function Incentive_Tracker() {
           }
         );
         console.log("Incentive data sent");
+        alert("incentive records sent successfully");
       } catch (err) {
         console.log(err);
       }

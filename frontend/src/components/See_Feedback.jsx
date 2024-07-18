@@ -103,9 +103,41 @@ function See_Feedback() {
       const headers = Object.keys(jsonData[0]);
       worksheet.addRow(headers);
 
+      // Identify date columns
+      const dateColumns = headers
+        .map((header, index) => ({
+          header,
+          index,
+          isDate: jsonData.some((row) => {
+            const date = new Date(row[header]);
+            return !isNaN(date.getTime());
+          }),
+        }))
+        .filter((col) => col.isDate);
+
+      // Add rows
+      // jsonData.forEach((row) => {
+      //   worksheet.addRow(Object.values(row));
+      // });
+
       // Add rows
       jsonData.forEach((row) => {
-        worksheet.addRow(Object.values(row));
+        const values = headers.map((header) => row[header]);
+        worksheet.addRow(values);
+      });
+
+      // Apply date formatting to date columns
+      dateColumns.forEach((col) => {
+        worksheet.getColumn(col.index + 1).eachCell((cell, rowNumber) => {
+          if (rowNumber > 1) {
+            // Skip header row
+            const date = new Date(cell.value);
+            if (!isNaN(date.getTime())) {
+              cell.value = date;
+              cell.numFmt = "yyyy-mm-dd";
+            }
+          }
+        });
       });
 
       // Generate Excel file

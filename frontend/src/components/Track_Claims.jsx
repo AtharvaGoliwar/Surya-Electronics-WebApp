@@ -114,7 +114,8 @@ function Track_Claims() {
   //   console.log("Update button clicked");
   // };
 
-  const handleFileDownload = async () => {
+  const handleFileDownload = async (e) => {
+    e.preventDefault();
     let jsonData = incentiveRecords;
     const dateColumnHeader = "docDate";
     try {

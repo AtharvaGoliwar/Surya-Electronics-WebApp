@@ -110,6 +110,7 @@ function Customer_Feedback() {
 
   return (
     <>
+      {console.log(datesData)}
       <div style={{ display: "flex", marginLeft: 200 }}>
         <Sidebar />
         <div>

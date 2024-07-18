@@ -133,7 +133,7 @@ function See_Feedback() {
                 See Feedback
               </h3>
               <form id="add-employee-form">
-                <input
+                {/* <input
                   type="text"
                   placeholder="Enter Employee Name"
                   value={employeeInput}
@@ -148,7 +148,25 @@ function See_Feedback() {
                     padding: "10px",
                     fontSize: "16px",
                   }}
-                />
+                /> */}
+                <select
+                  onChange={handleEmployeeChange}
+                  style={{
+                    height: 40,
+                    borderRadius: "4px",
+                    backgroundColor: "#333",
+                    color: "#fff",
+                    border: "1px solid #000",
+                  }}
+                >
+                  <option disabled selected>
+                    Select Employee
+                  </option>
+                  {Object.keys(records).map((rec) => (
+                    <option value={rec}>{rec}</option>
+                  ))}
+                </select>
+
                 <button className="btn" onClick={addEmployee}>
                   Add Employee
                 </button>

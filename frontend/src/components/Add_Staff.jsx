@@ -45,7 +45,7 @@ function StaffRegistrationForm() {
       setName("");
       setNumber("");
       setPasswd("");
-      setRole("");
+      // setRole("");
       setUser("");
     } catch (err) {
       console.log(err);

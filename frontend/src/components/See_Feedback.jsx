@@ -88,7 +88,8 @@ function See_Feedback() {
     console.log("Update button clicked");
   };
 
-  const handleFileDownload = async () => {
+  const handleFileDownload = async (e) => {
+    e.preventDefault();
     let jsonData = [];
     try {
       let res = await axios.get(`${url}/alldata`, {

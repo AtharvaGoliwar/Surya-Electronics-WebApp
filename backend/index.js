@@ -65,7 +65,7 @@ const db = mysql.createPool({
     user:process.env.USER,
     password:process.env.PASSWORD,
     database:process.env.DATABASE,
-    connectionLimit: 50
+    connectionLimit: 100
 })
 
 // Connect to the database
@@ -76,15 +76,15 @@ const db = mysql.createPool({
 //     console.log('Connected to database');
 //   });
 
-db.getConnection((err, connection) => {
-    if (err) {
-        console.error('Error connecting to database:', err);
-        return;
-    }
-    connection.release()
+// db.getConnection((err, connection) => {
+//     if (err) {
+//         console.error('Error connecting to database:', err);
+//         return;
+//     }
+//     connection.release()
   
-    console.log('Connected to database successfully.');
-})
+//     console.log('Connected to database successfully.');
+// })
   
   
 

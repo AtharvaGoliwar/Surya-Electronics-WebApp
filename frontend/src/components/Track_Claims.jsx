@@ -116,6 +116,7 @@ function Track_Claims() {
 
   const handleFileDownload = async () => {
     let jsonData = incentiveRecords;
+    const dateColumnHeader = "docDate";
     try {
       // let res = await axios.get("http://localhost:8800/alldata", {
       //   withCredentials: true,
@@ -129,17 +130,12 @@ function Track_Claims() {
       const headers = Object.keys(jsonData[0]);
       worksheet.addRow(headers);
 
-      // Identify date columns
-      const dateColumns = headers
-        .map((header, index) => ({
-          header,
-          index,
-          isDate: jsonData.some((row) => {
-            const date = new Date(row[header]);
-            return !isNaN(date.getTime());
-          }),
-        }))
-        .filter((col) => col.isDate);
+      // Find the index of the date column
+      const dateColumnIndex = headers.indexOf(dateColumnHeader);
+      if (dateColumnIndex === -1) {
+        console.error("Date column not found");
+        return;
+      }
 
       // Add rows
       // jsonData.forEach((row) => {
@@ -152,18 +148,16 @@ function Track_Claims() {
         worksheet.addRow(values);
       });
 
-      // Apply date formatting to date columns
-      dateColumns.forEach((col) => {
-        worksheet.getColumn(col.index + 1).eachCell((cell, rowNumber) => {
-          if (rowNumber > 1) {
-            // Skip header row
-            const date = new Date(cell.value);
-            if (!isNaN(date.getTime())) {
-              cell.value = date;
-              cell.numFmt = "yyyy-mm-dd";
-            }
+      // Apply date formatting to the specified date column
+      worksheet.getColumn(dateColumnIndex + 1).eachCell((cell, rowNumber) => {
+        if (rowNumber > 1) {
+          // Skip header row
+          const date = new Date(cell.value);
+          if (!isNaN(date.getTime())) {
+            cell.value = date;
+            cell.numFmt = "yyyy-mm-dd";
           }
-        });
+        }
       });
 
       // Generate Excel file

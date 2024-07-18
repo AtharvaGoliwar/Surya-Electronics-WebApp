@@ -99,10 +99,16 @@ app.post("/myroute",(req,res)=>{
     //     if(err) return res.json("error inserting")
     //         return res.json("added successfully")
     // })
-    const query = "ALTER TABLE users MODIFY password varchar(255) COLLATE utf8_bin NOT NULL";
+    // const query = "ALTER TABLE users MODIFY password varchar(255) COLLATE utf8_bin NOT NULL";
+    // db.query(query,(err,data)=>{
+    //     if(err) return res.json({error: err})
+    //         return res.json({message: "Alter password column successful"})
+    // })
+    // const query = `UPDATE (SELECT * FROM users where role="") set role="employee" where password="SURYA@123"`
+    const query = "select * from users where role=''"
     db.query(query,(err,data)=>{
-        if(err) return res.json({error: err})
-            return res.json({message: "Alter password column successful"})
+        if(err) return res.json(err)
+            return res.json("updated")
     })
 })
 

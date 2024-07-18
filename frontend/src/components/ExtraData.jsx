@@ -269,20 +269,32 @@ function Del_Staff_Data() {
                 {data[details].map((item, index) => (
                   <div className="result-item">
                     <p>
-                      <b>Mobile Number: </b>
+                      <b>Branch: </b>
+                      {item.Branch}
+                    </p>
+                    <p>
+                      <b>Invoice Date: </b>
+                      {item["Invoice Date"]}
+                    </p>
+                    <p>
+                      <b>Customer Name: </b>
+                      {item.bpName}
+                    </p>
+                    <p>
+                      <b>Mobile Phone: </b>
                       {item["Mobile Phone"]}
                     </p>
                     <p>
-                      <b>BP Code: </b>
-                      {item["bpcode"]}
+                      <b>Item Name: </b>
+                      {item.ItemName}
                     </p>
                     <p>
-                      <b>BP Name: </b>
-                      {item["bpName"]}
+                      <b>Sales Emp: </b>
+                      {item.salesEmp}
                     </p>
                     <p>
-                      <b>Sales Employee: </b>
-                      {item["salesEmp"]}
+                      <b>Item Total: </b>
+                      {item.ItemTotal}
                     </p>
                   </div>
                 ))}

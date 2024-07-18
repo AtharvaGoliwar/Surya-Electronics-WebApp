@@ -244,16 +244,32 @@ function See_Feedback() {
                       records[employeeEntry].map((item, i) => (
                         <div key={i} className="result-item">
                           <p>
+                            <b>Branch: </b>
+                            {item.Branch}
+                          </p>
+                          <p>
+                            <b>Invoice Date: </b>
+                            {item["Invoice Date"]}
+                          </p>
+                          <p>
                             <b>Customer Name: </b>
                             {item.bpName}
+                          </p>
+                          <p>
+                            <b>Mobile Phone: </b>
+                            {item["Mobile Phone"]}
                           </p>
                           <p>
                             <b>Item Name: </b>
                             {item.ItemName}
                           </p>
                           <p>
-                            <b>Brand: </b>
-                            {item.Brand}
+                            <b>Sales Emp: </b>
+                            {item.salesEmp}
+                          </p>
+                          <p>
+                            <b>Item Total: </b>
+                            {item.ItemTotal}
                           </p>
                           <p>
                             <b>Customer Review: </b>

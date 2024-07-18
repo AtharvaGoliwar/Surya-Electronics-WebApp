@@ -97,6 +97,10 @@ function Employee_Profiles() {
                         {details.userId}
                       </p>
                       <p>
+                        <b>Password:</b>
+                        {details.password}
+                      </p>
+                      <p>
                         <b>Role: </b>
                         {details.role}
                       </p>

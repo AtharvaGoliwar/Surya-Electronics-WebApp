@@ -276,6 +276,34 @@ function Track_Claims() {
                       displayRec.map((item, i) => (
                         <div key={i} className="result-item">
                           <p>
+                            <b>Branch: </b>
+                            {item.Branch}
+                          </p>
+                          <p>
+                            <b>Invoice Date: </b>
+                            {item.docDate}
+                          </p>
+                          <p>
+                            <b>Customer Name: </b>
+                            {item.CardName}
+                          </p>
+                          <p>
+                            <b>Item Code: </b>
+                            {item.ItemCode}
+                          </p>
+                          <p>
+                            <b>Item Name: </b>
+                            {item.ItemName}
+                          </p>
+                          <p>
+                            <b>Sales Emp: </b>
+                            {item.salesEmp}
+                          </p>
+                          <p>
+                            <b>Item Total: </b>
+                            {item.ItemTotal}
+                          </p>
+                          <p>
                             <b>SNLC:</b> {item.SNLC}
                           </p>
                           <p>

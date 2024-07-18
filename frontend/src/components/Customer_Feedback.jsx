@@ -159,8 +159,13 @@ function Customer_Feedback() {
                           <div key={i} className="result-item">
                             <p>Sales Employee: {item.salesEmp}</p>
                             <p>Branch: {item.Branch}</p>
+                            <p>Invoice Date: {item["Invoice Date"]}</p>
                             <p>BP Code: {item.bpcode}</p>
-                            <p>Brand: {item.Brand}</p>
+                            <p>BP Name: {item.bpName}</p>
+                            <p>Mobile Phone: {item["Mobile Phone"]}</p>
+                            <p>Item Name: {item.ItemName}</p>
+                            <p>Sales Emp: {item.salesEmp}</p>
+                            <p>Item Total: {item.ItemTotal}</p>
                           </div>
                         ))
                       ) : (

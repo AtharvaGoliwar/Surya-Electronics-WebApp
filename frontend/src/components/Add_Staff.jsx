@@ -74,7 +74,7 @@ function StaffRegistrationForm() {
                   onChange={(e) => setName(e.target.value)}
                 />
                 {/* <input type="text" placeholder="Last Name" /> */}
-                <select onChange={(e) => setBranch(e.target.value)}>
+                {/* <select onChange={(e) => setBranch(e.target.value)}>
                   <option disabled selected value={""}>
                     Select Branch
                   </option>
@@ -89,7 +89,7 @@ function StaffRegistrationForm() {
                   <option value={"MNKBG"}>Manikbaug (MNKBG)</option>
                   <option value={"SRR"}>Shirur (SRR)</option>
                   <option value={"RGNR"}>Rajgurunagar (RGNR)</option>
-                </select>
+                </select> */}
 
                 <input
                   type="text"

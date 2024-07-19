@@ -241,8 +241,10 @@ app.get("/users",requireAuth,(req,res)=>{
 })
 
 app.post("/addUser",requireAuth,requireAdmin,(req,res)=>{
+    const token = req.signedCookies.cookie
+    const branch = getUser(token).branch
     const query = "INSERT INTO users VALUES (?)";
-    const val = [req.body.userId, req.body.password, req.body.role, req.body.name, req.body.number,req.body.branch]
+    const val = [req.body.userId, req.body.password, req.body.role, req.body.name, req.body.number,branch]
     db.query(query,[val],(err,data)=>{
         if (err) return res.json(err)
             return res.json("user added")

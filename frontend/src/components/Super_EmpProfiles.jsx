@@ -123,6 +123,10 @@ function SuperEmpProfiles() {
                         <b>Phone Number: </b>
                         {currentRec.phone}
                       </p>
+                      <p>
+                        <b>Password: </b>
+                        {currentRec.password}
+                      </p>
                     </div>
                   ) : (
                     <p className="result-item">

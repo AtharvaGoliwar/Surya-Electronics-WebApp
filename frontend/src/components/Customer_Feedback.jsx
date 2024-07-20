@@ -77,13 +77,22 @@ function Customer_Feedback() {
       }
       for (let i = 0; i < users.length; i++) {
         console.log("hel");
-        let res2 = await axios.post(
-          `${url}/truncateTable`,
-          {
-            userId: users[i],
-          },
-          { withCredentials: true }
-        );
+        const params = { empid: users[i] };
+        const res3 = await axios.get(`${url}/emp`, {
+          params,
+          withCredentials: true,
+        });
+        let empData = res3.data;
+        if (empData.some((item) => item.review !== "")) {
+          let res2 = await axios.post(
+            `${url}/truncateTable`,
+            {
+              userId: users[i],
+            },
+            { withCredentials: true }
+          );
+        }
+
         let res1 = await axios.post(
           `${url}/send`,
           {

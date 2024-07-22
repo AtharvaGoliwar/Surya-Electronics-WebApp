@@ -18,7 +18,7 @@ function ChangePassword() {
     try {
       const params = { user: user, newpasswd: newpasswd };
       await axios.post(
-        `${url}/changePassword`,
+        `${url}/changepassword`,
         { user: user, newpasswd: newpasswd },
         { withCredentials: true }
       );

@@ -107,7 +107,7 @@ export default function Incentive_Tracker() {
     // });
     incentiveData.map((item) => {
       if (
-        item.SNLC === "" ||
+        // item.SNLC === "" ||
         item.sellingPrice === "" ||
         item.incentiveType === "" ||
         item.typeSelling === "" ||
@@ -205,12 +205,13 @@ export default function Incentive_Tracker() {
                     </p>
                     <p>
                       <b>SNLC:</b>
-                      <input
+                      {/* <input
                         name={index}
                         value={rec?.SNLC || ""}
                         onChange={(e) => handleChange(e, "SNLC")}
                         placeholder="SNLC"
-                      />
+                      /> */}
+                      {rec.SNLC}
                     </p>
                     <p>
                       <b>SELLING PRICES:</b>

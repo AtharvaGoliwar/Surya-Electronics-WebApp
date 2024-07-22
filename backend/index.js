@@ -881,7 +881,7 @@ app.post("/uploadIncentive",(req,res)=>{
         if(err) return res.json({error:err, message:"table did not drop"})
     })
     
-    const createTableQuery = `CREATE TABLE IF NOT EXISTS \`${table}\` (${columns},SNLC varchar(255) not null default "", sellingPrice varchar(255) not null default "",typeSelling varchar(255) not null default "",incentiveType varchar(255) not null default "",SRPQty varchar(255) not null default "",incentiveTotal varchar(255) not null default "",remark varchar(255) not null default "")`;
+    const createTableQuery = `CREATE TABLE IF NOT EXISTS \`${table}\` (${columns},sellingPrice varchar(255) not null default "",typeSelling varchar(255) not null default "",incentiveType varchar(255) not null default "",SRPQty varchar(255) not null default "",incentiveTotal varchar(255) not null default "",remark varchar(255) not null default "")`;
     db.query(createTableQuery, (err, result) => {
         if (err) {
         console.error('Error creating table:', err);
@@ -912,9 +912,9 @@ app.post("/sendIncentive",requireAuth, async (req,res)=>{
     const table = `incentive_${branch}`;
 
     const updatePromises = data.map((rec)=>{
-        const updateQuery = `UPDATE ${table} SET SNLC=?, sellingPrice=?, typeSelling=?, incentiveType=?, SRPQty=?, incentiveTotal=?, remark=? WHERE salesEmp=? and ItemName=? and CardName=?`
+        const updateQuery = `UPDATE ${table} SET sellingPrice=?, typeSelling=?, incentiveType=?, SRPQty=?, incentiveTotal=?, remark=? WHERE salesEmp=? and ItemName=? and CardName=?`
         return new Promise((resolve,reject)=>{
-            db.query(updateQuery,[rec.SNLC, rec.sellingPrice, rec.typeSelling, rec.incentiveType, rec.SRPQty, rec.incentiveTotal, rec.remark, rec.salesEmp,rec.ItemName,rec.CardName],(err,result)=>{
+            db.query(updateQuery,[rec.sellingPrice, rec.typeSelling, rec.incentiveType, rec.SRPQty, rec.incentiveTotal, rec.remark, rec.salesEmp,rec.ItemName,rec.CardName],(err,result)=>{
                 if (err) {
                     console.log('Error Updating data:', err);
                     return reject(err);

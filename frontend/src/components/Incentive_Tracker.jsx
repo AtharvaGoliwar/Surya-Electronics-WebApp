@@ -184,7 +184,7 @@ export default function Incentive_Tracker() {
                 (rec, index) => (
                   // formData[rec].length < 2 ? (
                   <div key={index} className="rec">
-                    <h2>{rec.CardName}</h2>
+                    <h2>{rec.bpName}</h2>
                     {/* <p>
                     <b>Phone:</b>
                     <a href={`tel:${formData[rec]["Mobile Phone"]}`}>
@@ -195,7 +195,10 @@ export default function Incentive_Tracker() {
                       <b>Item Name:</b> {rec.ItemName}
                     </p>
                     <p>
-                      <b>Item Group:</b> {rec.ItemGroup}
+                      <b>Item Group:</b> {rec.Category}
+                    </p>
+                    <p>
+                      <b>Invoice Date: </b> {rec["Invoice Date"]}
                     </p>
                     <p>
                       <b>Quantity:</b> {rec.Quantity}

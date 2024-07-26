@@ -88,15 +88,23 @@ function Customer_Feedback() {
           withCredentials: true,
         });
         let empData = res3.data;
-        if (empData.some((item) => item.review !== "")) {
-          let res2 = await axios.post(
-            `${url}/truncateTable`,
-            {
-              userId: users[i],
-            },
-            { withCredentials: true }
-          );
-        }
+        // if (empData.some((item) => item.review !== "")) {
+        //   let res2 = await axios.post(
+        //     `${url}/truncateTable`,
+        //     {
+        //       userId: users[i],
+        //     },
+        //     { withCredentials: true }
+        //   );
+        // }
+
+        let res2 = await axios.post(
+          `${url}/truncateTable`,
+          {
+            userId: users[i],
+          },
+          { withCredentials: true }
+        );
 
         let res1 = await axios.post(
           `${url}/send`,

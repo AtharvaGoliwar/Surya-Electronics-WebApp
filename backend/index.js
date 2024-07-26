@@ -20,7 +20,7 @@ app.use(session({
     cookie: { secure: true, httpOnly:true } // Set secure to true if using https
   }));
 
-app.use(express.json({limit:"10mb"}))
+app.use(express.json({limit:"50mb"}))
 
 // Define the allowed origins
 const allowedOrigins = [

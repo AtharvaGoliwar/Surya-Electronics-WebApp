@@ -50,22 +50,22 @@ function Customer_Feedback() {
 
   const handleSend = async () => {
     try {
-      const res = await axios.get(`${url}/users`, {
-        withCredentials: true,
-      });
+      // const res = await axios.get(`${url}/users`, {
+      //   withCredentials: true,
+      // });
       let users = [];
 
-      // for (let i = 0; i < datesData.length; i++) {
-      //   // if (!users.includes(datesData[i]["salesEmp"])) {
-      //   //   users.push(data[i]["salesEmp"]);
-      //   // }
-      //   for (let j = 0; j < datesData[i]["data"].length; j++) {
-      //     console.log(datesData[i]["data"][j]["salesEmp"]);
-      //     if (!users.includes(datesData[i]["data"][j]["salesEmp"])) {
-      //       users.push(datesData[i]["data"][j]["salesEmp"]);
-      //     }
-      //   }
-      // }
+      for (let i = 0; i < datesData.length; i++) {
+        // if (!users.includes(datesData[i]["salesEmp"])) {
+        //   users.push(data[i]["salesEmp"]);
+        // }
+        for (let j = 0; j < datesData[i]["data"].length; j++) {
+          console.log(datesData[i]["data"][j]["salesEmp"]);
+          if (!users.includes(datesData[i]["data"][j]["salesEmp"])) {
+            users.push(datesData[i]["data"][j]["salesEmp"]);
+          }
+        }
+      }
       for (let i = 0; i < res.data.length; i++) {
         users.push(res.data[i]["userId"]);
       }
@@ -88,23 +88,23 @@ function Customer_Feedback() {
           withCredentials: true,
         });
         let empData = res3.data;
-        // if (empData.some((item) => item.review !== "")) {
-        //   let res2 = await axios.post(
-        //     `${url}/truncateTable`,
-        //     {
-        //       userId: users[i],
-        //     },
-        //     { withCredentials: true }
-        //   );
-        // }
+        if (empData.some((item) => item.review !== "")) {
+          let res2 = await axios.post(
+            `${url}/truncateTable`,
+            {
+              userId: users[i],
+            },
+            { withCredentials: true }
+          );
+        }
 
-        let res2 = await axios.post(
-          `${url}/truncateTable`,
-          {
-            userId: users[i],
-          },
-          { withCredentials: true }
-        );
+        // let res2 = await axios.post(
+        //   `${url}/truncateTable`,
+        //   {
+        //     userId: users[i],
+        //   },
+        //   { withCredentials: true }
+        // );
 
         let res1 = await axios.post(
           `${url}/send`,

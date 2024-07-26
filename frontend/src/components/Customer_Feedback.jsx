@@ -50,7 +50,7 @@ function Customer_Feedback() {
 
   const handleSend = async () => {
     try {
-      const res = await axios.get("http://localhost:8800/users", {
+      const res = await axios.get(`${url}/users`, {
         withCredentials: true,
       });
       let users = [];

@@ -866,6 +866,7 @@ app.post("/upload",requireAuth,requireSuperAdmin,(req,res)=>{
             return;
         }
         res.send('Table created and data inserted successfully');
+        console.log("Sheet Uploaded successfully")
         });
     });
 })

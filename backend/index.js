@@ -878,11 +878,11 @@ app.post("/upload", requireAuth, requireSuperAdmin, async (req, res) => {
     const query1 = `DROP TABLE IF EXISTS ${table}`;
   
     try {
-      await db.query(query1);
+      db.query(query1);
       console.log("Table dropped");
   
       const createTableQuery = `CREATE TABLE IF NOT EXISTS ${table} (${columns}, review varchar(255) not null default "", description varchar(255) not null default "")`;
-      await db.query(createTableQuery);
+      db.query(createTableQuery);
       console.log("Table created");
   
       const batchSize = 10000;

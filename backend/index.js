@@ -842,10 +842,10 @@ app.get("/alldata",requireAuth,requireAdmin, (req, res) => {
 //     const table = "customers_small";
 //     const columns = headers.map(header=> `\`${header}\` varchar(255)`).join(',')
 //     const query1 = `DROP TABLE IF EXISTS ${table}`
-//     db.query(query1,(err,data)=>{
-//         if(err) return res.json({error:err, message:"table did not drop"})
-//             console.log("table dropped")
-//     })
+    // db.query(query1,(err,data)=>{
+    //     if(err) return res.json({error:err, message:"table did not drop"})
+    //         console.log("table dropped")
+    // })
     
 //     const createTableQuery = `CREATE TABLE IF NOT EXISTS ${table} (${columns},review varchar(255) not null default "", description varchar(255) not null default "")`;
 //     db.query(createTableQuery, (err, result) => {
@@ -878,12 +878,18 @@ app.post("/upload", requireAuth, requireSuperAdmin, async (req, res) => {
     const query1 = `DROP TABLE IF EXISTS ${table}`;
   
     try {
-      db.query(query1);
-      console.log("Table dropped");
+        db.query(query1,(err,data)=>{
+            if(err) return res.json({error:err, message:"table did not drop"})
+                console.log("table dropped")
+        })
+    //   console.log("Table dropped");
   
       const createTableQuery = `CREATE TABLE IF NOT EXISTS ${table} (${columns}, review varchar(255) not null default "", description varchar(255) not null default "")`;
-      db.query(createTableQuery);
-      console.log("Table created");
+      db.query(createTableQuery,(err,data)=>{
+        if(err) return res.json({error:err, message:"table did not get created"})
+            console.log("table created")
+    })
+    //   console.log("Table created");
   
       const batchSize = 10000;
       const insertDataInBatches = async (startIndex) => {
@@ -894,8 +900,10 @@ app.post("/upload", requireAuth, requireSuperAdmin, async (req, res) => {
         const flatValues = batch.reduce((acc, row) => acc.concat(headers.map(header => row[header])), []);
   
         const insertQuery = `INSERT INTO ${table} (${headers.map(header => `\`${header}\``).join(',')}) VALUES ${placeholders}`;
-        await db.query(insertQuery, flatValues);
-        console.log(`Inserted rows ${startIndex} to ${endIndex}`);
+        db.query(insertQuery, flatValues,(err,result)=>{
+            if(err) return res.status(404).json({err:err,message:`data not inserted from ${startIndex} to ${endIndex}`})
+                console.log(`Inserted rows ${startIndex} to ${endIndex}`);
+        });
   
         if (endIndex < rows.length) {
           await insertDataInBatches(endIndex);

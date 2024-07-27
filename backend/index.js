@@ -911,7 +911,7 @@ app.post("/upload", requireAuth, requireSuperAdmin, async (req, res) => {
       };
   
       await insertDataInBatches(0);
-      res.send('Table created and data inserted successfully');
+    //   res.send('Table created and data inserted successfully');
       console.log("Sheet uploaded successfully");
     } catch (err) {
       console.error('Error:', err);

@@ -842,10 +842,10 @@ app.get("/alldata",requireAuth,requireAdmin, (req, res) => {
 //     const table = "customers_small";
 //     const columns = headers.map(header=> `\`${header}\` varchar(255)`).join(',')
 //     const query1 = `DROP TABLE IF EXISTS ${table}`
-    // db.query(query1,(err,data)=>{
-    //     if(err) return res.json({error:err, message:"table did not drop"})
-    //         console.log("table dropped")
-    // })
+//     db.query(query1,(err,data)=>{
+//         if(err) return res.json({error:err, message:"table did not drop"})
+//             console.log("table dropped")
+//     })
     
 //     const createTableQuery = `CREATE TABLE IF NOT EXISTS ${table} (${columns},review varchar(255) not null default "", description varchar(255) not null default "")`;
 //     db.query(createTableQuery, (err, result) => {
@@ -878,40 +878,53 @@ app.post("/upload", requireAuth, requireSuperAdmin, async (req, res) => {
     const query1 = `DROP TABLE IF EXISTS ${table}`;
   
     try {
-        db.query(query1,(err,data)=>{
-            if(err) return res.json({error:err, message:"table did not drop"})
-                console.log("table dropped")
-        })
-    //   console.log("Table dropped");
+      await new Promise((resolve, reject) => {
+        db.query(query1, (err, result) => {
+          if (err) {
+            console.error('Error dropping table:', err);
+            res.status(500).json({ error: err, message: "Table did not drop" });
+            return reject(err);
+          }
+          console.log("Table dropped");
+          resolve(result);
+        });
+      });
   
       const createTableQuery = `CREATE TABLE IF NOT EXISTS ${table} (${columns}, review varchar(255) not null default "", description varchar(255) not null default "")`;
-      db.query(createTableQuery,(err,data)=>{
-        if(err) return res.json({error:err, message:"table did not get created"})
-            console.log("table created")
-    })
-    //   console.log("Table created");
+      await new Promise((resolve, reject) => {
+        db.query(createTableQuery, (err, result) => {
+          if (err) {
+            console.error('Error creating table:', err);
+            res.status(500).send('Error creating table');
+            return reject(err);
+          }
+          console.log("Table created");
+          resolve(result);
+        });
+      });
   
       const batchSize = 10000;
-      const insertDataInBatches = async (startIndex) => {
-        const endIndex = Math.min(startIndex + batchSize, rows.length);
-        const batch = rows.slice(startIndex, endIndex);
   
+      for (let i = 0; i < rows.length; i += batchSize) {
+        const batch = rows.slice(i, i + batchSize);
         const placeholders = batch.map(row => `(${headers.map(() => '?').join(',')})`).join(',');
         const flatValues = batch.reduce((acc, row) => acc.concat(headers.map(header => row[header])), []);
   
         const insertQuery = `INSERT INTO ${table} (${headers.map(header => `\`${header}\``).join(',')}) VALUES ${placeholders}`;
-        db.query(insertQuery, flatValues,(err,result)=>{
-            if(err) return res.status(404).json({err:err,message:`data not inserted from ${startIndex} to ${endIndex}`})
-                console.log(`Inserted rows ${startIndex} to ${endIndex}`);
+        await new Promise((resolve, reject) => {
+          db.query(insertQuery, flatValues, (err, result) => {
+            if (err) {
+              console.error('Error inserting data:', err);
+              res.status(500).send('Error inserting data');
+              return reject(err);
+            }
+            console.log(`Inserted rows ${i} to ${i + batchSize}`);
+            resolve(result);
+          });
         });
+      }
   
-        if (endIndex < rows.length) {
-          await insertDataInBatches(endIndex);
-        }
-      };
-  
-      await insertDataInBatches(0);
-    //   res.send('Table created and data inserted successfully');
+      res.send('Table created and data inserted successfully');
       console.log("Sheet uploaded successfully");
     } catch (err) {
       console.error('Error:', err);
